@@ -1,0 +1,68 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'Vagrantfile'
+    - 'vendor/**/*'
+  TargetRubyVersion: 2.6
+  NewCops: enable
+
+Metrics/AbcSize:
+  Exclude:
+    - 'test/test_helper.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - '**/*.gemspec'
+    - 'test/**/*.rb'
+
+Layout/LineLength:
+  Max: 150
+  Exclude:
+    - 'test/**/*.rb'
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Naming/ClassAndModuleCamelCase:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false
+
+# TODO: remove this?
+RSpec/MultipleExpectations:
+  Max: 2
+
+Style/CollectionMethods:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Layout/ClassStructure:
+  Enabled: true
