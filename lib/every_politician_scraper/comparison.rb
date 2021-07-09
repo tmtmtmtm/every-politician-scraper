@@ -6,9 +6,9 @@ require 'daff'
 module EveryPoliticianScraper
   # Diff between two CSV files
   class Comparison
-    def initialize(wikidata_source, official_source)
+    def initialize(wikidata_source, external_source)
       @wikidata_source = wikidata_source
-      @official_source = official_source
+      @external_source = external_source
     end
 
     def diff
@@ -18,38 +18,46 @@ module EveryPoliticianScraper
 
     private
 
-    attr_reader :wikidata_source, :official_source
+    attr_reader :wikidata_source, :external_source
 
     def wikidata
-      @wikidata ||= CSV.table('data/wikidata.csv')
+      @wikidata ||= CSV.table(wikidata_source, wikidata_csv_options)
     end
 
-    def official
-      @official ||= CSV.table('data/official.csv')
+    def external
+      @external ||= CSV.table(external_source, external_csv_options)
+    end
+
+    def wikidata_csv_options
+      {}
+    end
+
+    def external_csv_options
+      {}
     end
 
     def columns
-      wikidata.headers & official.headers
+      wikidata.headers & external.headers
     end
 
     def wikidata_tc
       [columns, *wikidata.map { |row| row.values_at(*columns) }]
     end
 
-    def official_tc
-      [columns, *official.map { |row| row.values_at(*columns) }]
+    def external_tc
+      [columns, *external.map { |row| row.values_at(*columns) }]
     end
 
     def wikidata_tv
       Daff::TableView.new(wikidata_tc)
     end
 
-    def official_tv
-      Daff::TableView.new(official_tc)
+    def external_tv
+      Daff::TableView.new(external_tc)
     end
 
     def alignment
-      Daff::Coopy.compare_tables(wikidata_tv, official_tv).align
+      Daff::Coopy.compare_tables(wikidata_tv, external_tv).align
     end
 
     # Ugh. :reek:FeatureEnvy
