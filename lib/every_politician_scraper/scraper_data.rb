@@ -6,9 +6,10 @@ require 'scraped'
 module EveryPoliticianScraper
   # standardise the interface to running a scraper
   class ScraperData
-    def initialize(url, klass = Legislature::Members)
+    def initialize(url, klass: nil, headers: {})
       @url = url
       @klass = klass
+      @headers = headers
     end
 
     def csv
@@ -17,10 +18,19 @@ module EveryPoliticianScraper
 
     private
 
-    attr_reader :url, :klass
+    attr_reader :url, :headers
+
+    # Allow either fallback, for backwards compatibility
+    def klass
+      return @klass if @klass
+
+      ['MemberList::Members', 'Legislature::Members'].map do |klass|
+        Object.const_get(klass) if Object.const_defined?(klass)
+      end.compact.first
+    end
 
     def data
-      @data ||= klass.new(response: Scraped::Request.new(url: url).response).members
+      @data ||= klass.new(response: Scraped::Request.new(url: url, headers: headers).response).members
     end
 
     def header
