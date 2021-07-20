@@ -6,8 +6,8 @@ require 'scraped'
 module EveryPoliticianScraper
   # standardise the interface to running a scraper
   class ScraperData
-    def initialize(url, klass: nil, headers: {})
-      @url = url
+    def initialize(urls, klass: nil, headers: {})
+      @urls = [urls].flatten
       @klass = klass
       @headers = headers
     end
@@ -18,7 +18,7 @@ module EveryPoliticianScraper
 
     private
 
-    attr_reader :url, :headers
+    attr_reader :urls, :headers
 
     # Allow either fallback, for backwards compatibility
     def klass
@@ -30,7 +30,9 @@ module EveryPoliticianScraper
     end
 
     def data
-      @data ||= klass.new(response: Scraped::Request.new(url: url, headers: headers).response).members
+      @data ||= urls.flat_map do |url|
+        klass.new(response: Scraped::Request.new(url: url, headers: headers).response).members
+      end
     end
 
     def header
