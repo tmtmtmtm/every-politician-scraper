@@ -95,9 +95,10 @@ module EveryPoliticianScraper
           OPTIONAL { ?item rdfs:label ?enLabel FILTER(LANG(?enLabel) = "#{lang}") }
           BIND(COALESCE(?sourceName, ?enLabel) AS ?name)
 
+          OPTIONAL { ?held prov:wasDerivedFrom/pr:P1932 ?statedName }
           OPTIONAL { ?positionItem wdt:P1705  ?nativeLabel   FILTER(LANG(?nativeLabel)   = "#{lang}") }
           OPTIONAL { ?positionItem rdfs:label ?positionLabel FILTER(LANG(?positionLabel) = "#{lang}") }
-          BIND(COALESCE(?nativeLabel, ?positionLabel) AS ?position)
+          BIND(COALESCE(?statedName, ?nativeLabel, ?positionLabel) AS ?position)
         }
         ORDER BY ?positionLabel ?began
       SPARQL
