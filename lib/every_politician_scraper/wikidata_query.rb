@@ -95,7 +95,7 @@ module EveryPoliticianScraper
           OPTIONAL { ?item rdfs:label ?enLabel FILTER(LANG(?enLabel) = "#{lang}") }
           BIND(COALESCE(?sourceName, ?enLabel) AS ?name)
 
-          OPTIONAL { ?positionItem wdt:P1705 ?nativeLabel }
+          OPTIONAL { ?positionItem wdt:P1705  ?nativeLabel   FILTER(LANG(?nativeLabel)   = "#{lang}") }
           OPTIONAL { ?positionItem rdfs:label ?positionLabel FILTER(LANG(?positionLabel) = "#{lang}") }
           BIND(COALESCE(?nativeLabel, ?positionLabel) AS ?position)
         }
