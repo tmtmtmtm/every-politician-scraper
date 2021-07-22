@@ -76,7 +76,9 @@ module EveryPoliticianScraper
 
     def query
       <<~SPARQL
-        SELECT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid) ?name (STRAFTER(STR(?positionItem), STR(wd:)) AS ?pid) ?position
+        SELECT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid) ?name
+               (STRAFTER(STR(?positionItem), STR(wd:)) AS ?pid) ?position
+               (STRAFTER(STR(?held), '/statement/') AS ?psid)
         WHERE {
           BIND (wd:#{cabinet} AS ?cabinet) .
           ?cabinet wdt:P31 ?parent .
