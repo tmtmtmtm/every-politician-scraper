@@ -74,10 +74,21 @@ module EveryPoliticianScraper
       env[:lang] || 'en'
     end
 
+    def sourcefilter
+      return '' unless source_match
+
+      "FILTER CONTAINS(STR(?source), '#{source_match}')"
+    end
+
+    def source_match
+      env[:source_match]
+    end
+
     def query
       <<~SPARQL
-        SELECT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid) ?name
+        SELECT DISTINCT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid) ?name
                (STRAFTER(STR(?positionItem), STR(wd:)) AS ?pid) ?position
+               ?source
                (STRAFTER(STR(?held), '/statement/') AS ?psid)
         WHERE {
           BIND (wd:#{cabinet} AS ?cabinet) .
@@ -93,7 +104,12 @@ module EveryPoliticianScraper
           ?held ps:P39 ?positionItem ; pq:P580 ?start .
           FILTER NOT EXISTS { ?held pq:P582 [] }
 
-          OPTIONAL { ?held prov:wasDerivedFrom/pr:P1810 ?sourceName }
+          OPTIONAL {
+            ?held prov:wasDerivedFrom ?ref .
+            ?ref pr:P854 ?source #{sourcefilter} .
+            OPTIONAL { ?ref pr:P1810 ?sourceName }
+          }
+
           OPTIONAL { ?item rdfs:label ?enLabel FILTER(LANG(?enLabel) = "#{lang}") }
           BIND(COALESCE(?sourceName, ?enLabel) AS ?name)
 
