@@ -86,9 +86,9 @@ module EveryPoliticianScraper
 
     def query
       <<~SPARQL
-        SELECT DISTINCT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid) ?name
+        SELECT DISTINCT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid)
+               ?name ?wdLabel ?gender ?dob ?dobPrecision ?source
                (STRAFTER(STR(?positionItem), STR(wd:)) AS ?pid) ?position
-               ?source
                (STRAFTER(STR(?held), '/statement/') AS ?psid)
         WHERE {
           BIND (wd:#{cabinet} AS ?cabinet) .
@@ -108,17 +108,27 @@ module EveryPoliticianScraper
             ?held prov:wasDerivedFrom ?ref .
             ?ref pr:P854 ?source #{sourcefilter} .
             OPTIONAL { ?ref pr:P1810 ?sourceName }
+            OPTIONAL { ?ref pr:P1932 ?statedName }
           }
 
-          OPTIONAL { ?item rdfs:label ?enLabel FILTER(LANG(?enLabel) = "#{lang}") }
-          BIND(COALESCE(?sourceName, ?enLabel) AS ?name)
+          OPTIONAL { ?item rdfs:label ?wdLabel FILTER(LANG(?wdLabel) = "#{lang}") }
+          BIND(COALESCE(?sourceName, ?wdLabel) AS ?name)
 
-          OPTIONAL { ?held prov:wasDerivedFrom/pr:P1932 ?statedName }
           OPTIONAL { ?positionItem wdt:P1705  ?nativeLabel   FILTER(LANG(?nativeLabel)   = "#{lang}") }
           OPTIONAL { ?positionItem rdfs:label ?positionLabel FILTER(LANG(?positionLabel) = "#{lang}") }
           BIND(COALESCE(?statedName, ?nativeLabel, ?positionLabel) AS ?position)
+
+          OPTIONAL { ?item wdt:P21 ?genderItem }
+          OPTIONAL {
+            ?item p:P569/psv:P569 [wikibase:timeValue ?dob ; wikibase:timePrecision ?dobPrecision]
+          }
+
+          SERVICE wikibase:label {
+            bd:serviceParam wikibase:language "en".
+            ?genderItem rdfs:label ?gender
+          }
         }
-        ORDER BY ?positionLabel ?began
+        ORDER BY STR(?name) STR(?position) ?began
       SPARQL
     end
   end
