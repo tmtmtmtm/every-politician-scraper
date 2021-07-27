@@ -3,6 +3,13 @@
 require 'csv'
 require 'scraped'
 
+# scraped Stragegy for reading a file rather than URL
+class LocalFileRequest < Scraped::Request::Strategy
+  def response
+    { body: Pathname.new(url).read }
+  end
+end
+
 module EveryPoliticianScraper
   # standardise the interface to running a scraper
   class ScraperData
@@ -31,8 +38,12 @@ module EveryPoliticianScraper
 
     def data
       @data ||= urls.flat_map do |url|
-        klass.new(response: Scraped::Request.new(url: url, headers: headers).response).members
+        klass.new(response: request(url).response).members
       end
+    end
+
+    def request(url)
+      Scraped::Request.new(url: url, headers: headers)
     end
 
     def header
@@ -41,6 +52,13 @@ module EveryPoliticianScraper
 
     def rows
       data.map { |row| row.values.to_csv }
+    end
+  end
+
+  # Scraping a file on disk, e.g. downloaded via curl
+  class FileData < ScraperData
+    def request(url)
+      Scraped::Request.new(url: url, headers: headers, strategies: [LocalFileRequest])
     end
   end
 end
