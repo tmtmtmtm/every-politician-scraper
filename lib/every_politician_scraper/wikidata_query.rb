@@ -119,8 +119,10 @@ module EveryPoliticianScraper
           BIND(COALESCE(?statedName, ?nativeLabel, ?positionLabel) AS ?position)
 
           OPTIONAL { ?item wdt:P21 ?genderItem }
-          OPTIONAL {
-            ?item p:P569/psv:P569 [wikibase:timeValue ?dob ; wikibase:timePrecision ?dobPrecision]
+          OPTIONAL { # truthiest DOB, with precison
+            ?item p:P569 ?ts .
+            ?ts a wikibase:BestRank .
+            ?ts psv:P569 [wikibase:timeValue ?dob ; wikibase:timePrecision ?dobPrecision] .
           }
 
           SERVICE wikibase:label {
