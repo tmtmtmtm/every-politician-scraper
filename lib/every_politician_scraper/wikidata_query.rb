@@ -81,7 +81,7 @@ module EveryPoliticianScraper
     end
 
     def source_match
-      env[:source_match]
+      env[:source_match] || env.dig(:source, :url)
     end
 
     def query
