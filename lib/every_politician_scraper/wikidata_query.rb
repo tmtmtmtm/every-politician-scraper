@@ -67,11 +67,11 @@ module EveryPoliticianScraper
     end
 
     def cabinet
-      env[:cabinet] || raise('No cabinet ID provided')
+      env.dig(:cabinet, :id) || env[:cabinet] || raise('No cabinet ID provided')
     end
 
     def lang
-      env[:lang] || 'en'
+      env.dig(:source, :lang, :code) || env[:lang] || 'en'
     end
 
     def sourcefilter
