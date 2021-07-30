@@ -102,6 +102,7 @@ module EveryPoliticianScraper
           # Who currently holds those positions
           ?item wdt:P31 wd:Q5 ; p:P39 ?held .
           ?held ps:P39 ?positionItem ; pq:P580 ?start .
+          FILTER NOT EXISTS { ?held wikibase:rank wikibase:DeprecatedRank }
           FILTER NOT EXISTS { ?held pq:P582 [] }
 
           OPTIONAL {
