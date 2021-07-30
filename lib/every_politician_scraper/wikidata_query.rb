@@ -77,7 +77,7 @@ module EveryPoliticianScraper
     def sourcefilter
       return '' unless source_match
 
-      "FILTER CONTAINS(STR(?source), '#{source_match}')"
+      "FILTER CONTAINS(STR(?source), '#{source_match.gsub(%r[https?://],'')}')"
     end
 
     def source_match
