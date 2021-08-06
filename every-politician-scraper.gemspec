@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.authors               = ['Tony Bowden']
   spec.email                 = ['tony@tmtm.com']
 
-  spec.summary  = 'Scaper multiple sources of political data and compare them'
+  spec.summary  = 'Scrape multiple sources of political data and compare them'
   spec.homepage = 'https://github.com/tmtmtmtm/every-politician-scraper/'
   spec.license  = 'MIT'
 
