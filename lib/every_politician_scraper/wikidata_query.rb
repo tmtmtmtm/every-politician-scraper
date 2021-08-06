@@ -81,7 +81,7 @@ module EveryPoliticianScraper
     def sourcefilter
       return '' unless source_match
 
-      "FILTER CONTAINS(STR(?source), '#{source_match.gsub(%r[https?://],'')}')"
+      "FILTER CONTAINS(STR(?source), '#{source_match.gsub(%r{https?://}, '')}')"
     end
 
     def source_match
@@ -96,7 +96,7 @@ module EveryPoliticianScraper
                (STRAFTER(STR(?held), '/statement/') AS ?psid)
         WHERE {
           BIND (wd:#{cabinet} AS ?cabinet) .
-          #{parent ? "BIND (wd:#{parent} AS ?parent) ." : "?cabinet wdt:P31 ?parent ."}
+          #{parent ? "BIND (wd:#{parent} AS ?parent) ." : '?cabinet wdt:P31 ?parent .'}
 
           # Positions currently in the cabinet
           ?positionItem p:P361 ?ps .
