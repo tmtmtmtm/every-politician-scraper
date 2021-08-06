@@ -70,6 +70,10 @@ module EveryPoliticianScraper
       env.dig(:cabinet, :id) || env[:cabinet] || raise('No cabinet ID provided')
     end
 
+    def parent
+      env.dig(:cabinet, :parent)
+    end
+
     def lang
       env.dig(:source, :lang, :code) || env[:lang] || 'en'
     end
@@ -92,7 +96,7 @@ module EveryPoliticianScraper
                (STRAFTER(STR(?held), '/statement/') AS ?psid)
         WHERE {
           BIND (wd:#{cabinet} AS ?cabinet) .
-          ?cabinet wdt:P31 ?parent .
+          #{parent ? "BIND (wd:#{parent} AS ?parent) ." : "?cabinet wdt:P31 ?parent ."}
 
           # Positions currently in the cabinet
           ?positionItem p:P361 ?ps .
