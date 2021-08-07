@@ -81,7 +81,28 @@ end
 
 class MemberList
   # details for an individual member
-  class Member < CabinetMemberList::Member; end
+  class Member < CabinetMemberList::Member
+    # A politician's name, from which prefixes and suffixes can be removed
+    class Name
+      def initialize(full:, prefixes: [], suffixes: [])
+        @full = full
+        @prefixes = prefixes
+        @suffixes = suffixes
+      end
+
+      def short
+        suffixes.reduce(unprefixed) { |current, suffix| current.sub(/ #{suffix},?\s?$/, ' ').tidy }
+      end
+
+      private
+
+      attr_reader :full, :prefixes, :suffixes
+
+      def unprefixed
+        prefixes.reduce(full) { |current, prefix| " #{current}".sub(/ #{prefix}\.? /i, ' ') }.tidy
+      end
+    end
+  end
 
   # The page listing all the members
   class Members < CabinetMemberList::Members
