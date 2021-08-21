@@ -58,23 +58,29 @@ class CabinetMemberList
   # base class for an individual member
   class Member < Scraped::HTML
     field :name do
+      abort('Scraper should provide a #name method')
     end
 
     field :position do
+      abort('Scraper should provide a #position method')
     end
   end
 
   # base class for the list of members
   class Members < Scraped::HTML
     field :members do
-      member_container.flat_map do |member|
-        data = fragment(member => member_class).to_h
+      member_items.flat_map do |member|
+        data = member.to_h
         [data.delete(:position)].flatten.map { |posn| data.merge(position: posn) }
-      end
+      end.uniq
     end
 
     def member_class
       ::CabinetMemberList::Member
+    end
+
+    def member_items
+      member_container.map { |member| fragment(member => member_class) }
     end
   end
 end
