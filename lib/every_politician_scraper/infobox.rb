@@ -7,7 +7,7 @@ require 'scraped'
 # remove trailing number, and standardise 'Order' to 'Office'
 class Symbol
   def unnumbered
-    to_s.sub(/\d+$/, '').sub('order', 'office').to_sym
+    to_s.sub(/\d+$/, '').to_sym
   end
 end
 
@@ -108,6 +108,7 @@ module EveryPolitician
       def command_data
         {
           office: office.to_h,
+          P1545:  ordinal.zero? ? nil : ordinal.to_s,
           P580:   start_time,
           P582:   end_time,
           P1365:  replaces ? replaces.to_h : nil,
@@ -145,6 +146,10 @@ module EveryPolitician
         return unless successor
 
         Link.new(successor)
+      end
+
+      def ordinal
+        data.dig(:order, :text).to_i
       end
 
       def term_start_raw
@@ -194,7 +199,7 @@ module EveryPolitician
 
     def infobox_hash
       @infobox_hash ||= json[:sections].flat_map { |section| section[:infoboxes] }.compact.flatten
-                                       .find { |box| box.transform_keys(&:unnumbered).key?(:office) } || {}
+                                       .find { |box| (box.transform_keys(&:unnumbered).keys & %i[office order]).any? }
     end
 
     def offices
@@ -206,9 +211,10 @@ module EveryPolitician
 
     def filled_offices
       offices.each_with_index.map do |office, index|
+        this_office = office[:office] ||= office[:order] || next
         next_office = offices[index + 1]
-        next_office[:office] ||= office[:office] if next_office
-        office if office.key?(:office)
+        next_office[:office] ||= this_office if next_office
+        office
       end
     end
 

@@ -96,4 +96,20 @@ describe EveryPolitician::Infobox do
       assert_equal '2017-06', positions[2][:P582]
     end
   end
+
+  describe 'Eddie Fenech Adami' do
+    let(:datafile) { 'EFA.json' }
+
+    it 'handles both "office" and "order"' do
+      # wtf_wikipedia doesn't find the link here
+      # assert_equal 'Prime Minister of Malta', positions[0][:office][:links]
+      assert_equal 'Prime Minister of Malta', positions[0][:office][:stated_as]
+    end
+
+    it 'can find numeric ordinals' do
+      assert_equal '7', positions[2][:P1545]
+      assert_equal '10', positions[1][:P1545]
+      assert_nil positions[0][:P1545]
+    end
+  end
 end
