@@ -78,4 +78,22 @@ describe EveryPolitician::Infobox do
       assert_equal 2, positions.count
     end
   end
+
+  describe 'Edward Zammit Lewis' do
+    let(:datafile) { 'EZL.json' }
+
+    it 'handles month+year only dates' do
+      assert_equal '2020-01', positions[4][:P580]
+    end
+
+    it 'splits "X to Y" term fields' do
+      assert_equal '2019-07', positions[3][:P580]
+      assert_equal '2020-01', positions[3][:P582]
+    end
+
+    it 'splits "X - Y" term fields' do
+      assert_equal '2014-04', positions[2][:P580]
+      assert_equal '2017-06', positions[2][:P582]
+    end
+  end
 end

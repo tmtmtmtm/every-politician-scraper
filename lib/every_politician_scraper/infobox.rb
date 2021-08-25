@@ -2,11 +2,74 @@
 
 require 'date'
 require 'json'
+require 'scraped'
 
 # remove trailing number, and standardise 'Order' to 'Office'
 class Symbol
   def unnumbered
     to_s.sub(/\d+$/, '').sub('order', 'office').to_sym
+  end
+end
+
+# Parse a (potentially partial) date
+class DateString
+  MONTHS = %w[
+    nil January February March April May June July August September October November December
+  ].freeze
+
+  def initialize(str)
+    @str = str.tidy
+  end
+
+  def to_s
+    parsed_date
+  end
+
+  private
+
+  attr_reader :str
+
+  def parts
+    str.split(/\s+/)
+  end
+
+  def ruby_date
+    Date.parse(str).to_s rescue nil
+  end
+
+  def parsed_date
+    return str if year_only?
+    return "#{year}-#{month}" if month_year?
+
+    ruby_date
+  end
+
+  def final_part_looks_like_year?
+    parts.last =~ /^(\d{4})$/
+  end
+
+  def penultimate_part_looks_like_month?
+    MONTHS.include? parts[-2]
+  end
+
+  def year
+    raise "Unknown date format: #{str}" unless final_part_looks_like_year?
+
+    parts.last
+  end
+
+  def month
+    raise "Unknown date format: #{str}" unless penultimate_part_looks_like_month?
+
+    format('%02d', MONTHS.index { |mon| mon == parts[-2] })
+  end
+
+  def year_only?
+    (parts.count == 1)
+  end
+
+  def month_year?
+    (parts.count == 2)
   end
 end
 
@@ -63,13 +126,13 @@ module EveryPolitician
       def start_time
         return unless term_start_raw
 
-        Date.parse(term_start_raw).to_s rescue term_start_raw
+        DateString.new(term_start_raw).to_s
       end
 
       def end_time
         return unless term_end_raw
 
-        Date.parse(term_end_raw).to_s rescue term_end_raw
+        DateString.new(term_end_raw).to_s
       end
 
       def replaces
@@ -85,11 +148,11 @@ module EveryPolitician
       end
 
       def term_start_raw
-        data.dig(:term_start, :text) || data.dig(:termstart, :text)
+        data.dig(:term_start, :text) || data.dig(:termstart, :text) || combo_term_parts.first
       end
 
       def term_end_raw
-        data.dig(:term_end, :text) || data.dig(:termend, :text)
+        data.dig(:term_end, :text) || data.dig(:termend, :text) || combo_term_parts.last
       end
 
       def successor
@@ -98,6 +161,16 @@ module EveryPolitician
 
       def predecessor
         data[:predecessor]
+      end
+
+      def combo_term
+        data.dig(:term, :text)
+      end
+
+      def combo_term_parts
+        return [nil, nil] unless combo_term
+
+        combo_term.split(/ (?:to|-) /, 2)
       end
     end
 
