@@ -112,4 +112,14 @@ describe EveryPolitician::Infobox do
       assert_nil positions[0][:P1545]
     end
   end
+
+  describe 'Teten Masduki' do
+    let(:datafile) { 'TM.json' }
+
+    it 'handles "office" and "order" on the same page' do
+      assert_equal 2, positions.count
+      assert_equal '2nd Presidential Chief of Staff', positions[0][:office][:stated_as]
+      assert_equal 'Minister for Cooperatives and SMEs', positions[1][:office][:stated_as]
+    end
+  end
 end

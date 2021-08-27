@@ -110,8 +110,8 @@ module EveryPolitician
           office: office.to_h,
           P1545:  ordinal.zero? ? nil : ordinal.to_s,
           P580:   start_time,
-          P582:   end_time,
           P1365:  replaces ? replaces.to_h : nil,
+          P582:   end_time,
           P1366:  replaced_by ? replaced_by.to_h : nil,
         }.compact
       end
@@ -202,16 +202,20 @@ module EveryPolitician
                                        .find { |box| (box.transform_keys(&:unnumbered).keys & %i[office order]).any? }
     end
 
+    def grouped_sections
+      infobox_hash.group_by { |key, _| (key[/(\d+)$/, 1] || 0) }
+                  .sort_by { |num, _| num.to_i }
+    end
+
     def offices
-      @offices ||= infobox_hash
-                   .group_by { |key, _| (key[/(\d+)$/, 1] || 0) }
-                   .sort_by { |key, _v| key.to_i }
+      @offices ||= grouped_sections
                    .map { |_, val| val.to_h.transform_keys(&:unnumbered) }
+                   .each { |office| office[:office] ||= office[:order] }
     end
 
     def filled_offices
       offices.each_with_index.map do |office, index|
-        this_office = office[:office] ||= office[:order] || next
+        this_office = office[:office] || next
         next_office = offices[index + 1]
         next_office[:office] ||= this_office if next_office
         office
