@@ -122,4 +122,15 @@ describe EveryPolitician::Infobox do
       assert_equal 'Minister for Cooperatives and SMEs', positions[1][:office][:stated_as]
     end
   end
+
+  describe 'Zorana Mihajlović' do
+    let(:datafile) { 'ZM.json' }
+
+    it 'handles multiple predecessors' do
+      assert_equal 4, positions.count
+      position = positions[2]
+      assert_equal 'Minister of Construction, Transport, and Infrastructure', position[:office][:stated_as]
+      assert_equal ['Velimir Ilić', 'Aleksandar Antić'], position[:P1365][:links]
+    end
+  end
 end
