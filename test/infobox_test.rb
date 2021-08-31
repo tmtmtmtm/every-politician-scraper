@@ -143,5 +143,4 @@ describe EveryPolitician::Infobox do
       assert_includes positions[15][:office][:stated_as], 'Lord-in-waiting'
     end
   end
-
 end

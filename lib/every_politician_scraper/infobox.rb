@@ -197,8 +197,16 @@ module EveryPolitician
       @json ||= JSON.parse(raw_json, symbolize_names: true)
     end
 
+    def infoboxes
+      json[:sections].flat_map { |section| section[:infoboxes] }.compact.flatten
+    end
+
+    def infoboxes_with_positions
+      infoboxes.select { |box| (box.transform_keys(&:unnumbered).keys & %i[office order]).any? }
+    end
+
     def infobox_hash
-      @infobox_hash ||= json[:sections].flat_map { |section| section[:infoboxes] }.compact.flatten.select { |box| (box.transform_keys(&:unnumbered).keys & %i[office order]).any? }.inject(&:merge)
+      @infobox_hash ||= infoboxes_with_positions.reduce(&:merge)
     end
 
     def grouped_sections
