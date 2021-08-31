@@ -133,4 +133,15 @@ describe EveryPolitician::Infobox do
       assert_equal ['Velimir Ilić', 'Aleksandar Antić'], position[:P1365][:links]
     end
   end
+
+  describe 'George Young' do
+    let(:datafile) { 'GY.json' }
+
+    it 'handles more than 10 offices' do
+      assert_equal 16, positions.count
+      assert_includes positions[0][:office][:stated_as], 'Ealing Acton'
+      assert_includes positions[15][:office][:stated_as], 'Lord-in-waiting'
+    end
+  end
+
 end

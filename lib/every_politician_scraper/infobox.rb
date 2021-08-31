@@ -198,8 +198,7 @@ module EveryPolitician
     end
 
     def infobox_hash
-      @infobox_hash ||= json[:sections].flat_map { |section| section[:infoboxes] }.compact.flatten
-                                       .find { |box| (box.transform_keys(&:unnumbered).keys & %i[office order]).any? }
+      @infobox_hash ||= json[:sections].flat_map { |section| section[:infoboxes] }.compact.flatten.select { |box| (box.transform_keys(&:unnumbered).keys & %i[office order]).any? }.inject(&:merge)
     end
 
     def grouped_sections
