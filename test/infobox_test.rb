@@ -143,4 +143,14 @@ describe EveryPolitician::Infobox do
       assert_includes positions[15][:office][:stated_as], 'Lord-in-waiting'
     end
   end
+
+  describe 'Zasia binti Sirin' do
+    let(:datafile) { 'ZbS.json' }
+
+    it 'handles other date separators' do
+      assert_equal 1, positions.count
+      assert_includes positions[0][:P580], '2011'
+      assert_includes positions[0][:P582], '2016'
+    end
+  end
 end

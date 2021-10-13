@@ -175,7 +175,7 @@ module EveryPolitician
       def combo_term_parts
         return [nil, nil] unless combo_term
 
-        combo_term.split(/ (?:to|-) /, 2)
+        combo_term.split(/\s*(?:to|-|–)\s*/, 2)
       end
     end
 
