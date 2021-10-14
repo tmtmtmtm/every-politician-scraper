@@ -153,4 +153,16 @@ describe EveryPolitician::Infobox do
       assert_includes positions[0][:P582], '2016'
     end
   end
+
+  describe 'ʻAisake Eke' do
+    let(:datafile) { 'AE.json' }
+
+    it 'handles constituency_MP roles' do
+      assert_equal 2, positions.count
+      assert_includes positions[0][:P580], '2010-11-25'
+      assert_includes positions[0][:P582], '2017-11-16'
+      # TODO: turn this into a constituency
+      assert_includes positions[0][:office][:stated_as], 'Tongatapu 5'
+    end
+  end
 end

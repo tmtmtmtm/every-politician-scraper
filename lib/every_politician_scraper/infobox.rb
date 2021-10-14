@@ -202,7 +202,7 @@ module EveryPolitician
     end
 
     def infoboxes_with_positions
-      infoboxes.select { |box| (box.transform_keys(&:unnumbered).keys & %i[office order]).any? }
+      infoboxes.select { |box| (box.transform_keys(&:unnumbered).keys & %i[office order constituency_mp]).any? }
     end
 
     def infobox_hash
@@ -217,7 +217,7 @@ module EveryPolitician
     def offices
       @offices ||= grouped_sections
                    .map { |_, val| val.to_h.transform_keys(&:unnumbered) }
-                   .each { |office| office[:office] ||= office[:order] }
+                   .each { |office| office[:office] ||= office.values_at(:order, :constituency_mp).compact.first }
     end
 
     def filled_offices
