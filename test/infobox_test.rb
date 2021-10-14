@@ -161,8 +161,8 @@ describe EveryPolitician::Infobox do
       assert_equal 2, positions.count
       assert_includes positions[0][:P580], '2010-11-25'
       assert_includes positions[0][:P582], '2017-11-16'
-      # TODO: turn this into a constituency
-      assert_includes positions[0][:office][:stated_as], 'Tongatapu 5'
+      assert_includes positions[0][:P768][:stated_as], 'Tongatapu 5'
+      assert_includes positions[0][:office][:stated_as], 'Member of Parliament'
     end
   end
 end

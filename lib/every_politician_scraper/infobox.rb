@@ -108,6 +108,7 @@ module EveryPolitician
       def command_data
         {
           office: office.to_h,
+          P768:   constituency ? constituency.to_h : nil,
           P1545:  ordinal.zero? ? nil : ordinal.to_s,
           P580:   start_time,
           P1365:  replaces ? replaces.to_h : nil,
@@ -136,6 +137,12 @@ module EveryPolitician
         DateString.new(term_end_raw).to_s
       end
 
+      def constituency
+        return unless constituency_raw
+
+        Link.new(constituency_raw)
+      end
+
       def replaces
         return unless predecessor
 
@@ -158,6 +165,10 @@ module EveryPolitician
 
       def term_end_raw
         data.dig(:term_end, :text) || data.dig(:termend, :text) || combo_term_parts.last
+      end
+
+      def constituency_raw
+        data[:constituency]
       end
 
       def successor
@@ -221,12 +232,21 @@ module EveryPolitician
     end
 
     def filled_offices
-      offices.each_with_index.map do |office, index|
+      restructured_offices.each_with_index.map do |office, index|
         this_office = office[:office] || next
         next_office = offices[index + 1]
         next_office[:office] ||= this_office if next_office
         office
       end
+    end
+
+    # TODO: make sure this copes with other types of legislative positions
+    def restructured_offices
+      offices.select { |office| office.key? :constituency_mp }.each do |office|
+        office[:constituency] = office[:constituency_mp]
+        office[:office] = { text: 'Member of Parliament' }
+      end
+      offices
     end
 
     attr_reader :raw_json
