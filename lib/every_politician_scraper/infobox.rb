@@ -108,12 +108,12 @@ module EveryPolitician
       def command_data
         {
           office: office.to_h,
-          P768:   constituency ? constituency.to_h : nil,
+          P768:   constituency,
           P1545:  ordinal.zero? ? nil : ordinal.to_s,
           P580:   start_time,
-          P1365:  replaces ? replaces.to_h : nil,
+          P1365:  replaces,
           P582:   end_time,
-          P1366:  replaced_by ? replaced_by.to_h : nil,
+          P1366:  replaced_by,
         }.compact
       end
 
@@ -140,19 +140,19 @@ module EveryPolitician
       def constituency
         return unless constituency_raw
 
-        Link.new(constituency_raw)
+        Link.new(constituency_raw).to_h
       end
 
       def replaces
         return unless predecessor
 
-        Link.new(predecessor)
+        Link.new(predecessor).to_h
       end
 
       def replaced_by
         return unless successor
 
-        Link.new(successor)
+        Link.new(successor).to_h
       end
 
       def ordinal
