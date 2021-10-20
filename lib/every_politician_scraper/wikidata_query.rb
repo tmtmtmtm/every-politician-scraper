@@ -91,7 +91,7 @@ module EveryPoliticianScraper
     def query
       <<~SPARQL
         SELECT DISTINCT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid)
-               ?name ?wdLabel ?gender ?dob ?dobPrecision ?source
+               ?name ?wdLabel ?gender ?dob ?dobPrecision ?source ?sourceDate
                (STRAFTER(STR(?positionItem), STR(wd:)) AS ?pid) ?position
                (STRAFTER(STR(?held), '/statement/') AS ?psid)
         WHERE {
@@ -114,6 +114,7 @@ module EveryPoliticianScraper
             ?ref pr:P854 ?source #{sourcefilter} .
             OPTIONAL { ?ref pr:P1810 ?sourceName }
             OPTIONAL { ?ref pr:P1932 ?statedName }
+            OPTIONAL { ?ref pr:P813 ?sourceDate  }
           }
 
           OPTIONAL { ?item rdfs:label ?wdLabel FILTER(LANG(?wdLabel) = "#{lang}") }
@@ -135,7 +136,7 @@ module EveryPoliticianScraper
             ?genderItem rdfs:label ?gender
           }
         }
-        ORDER BY STR(?name) STR(?position) ?began ?wdid
+        ORDER BY STR(?name) STR(?position) ?began ?wdid ?sourceDate
       SPARQL
     end
   end
