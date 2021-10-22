@@ -7,9 +7,9 @@ require 'pathname'
 require 'pry'
 
 describe EveryPolitician::Infobox do
-  let(:positions) do
-    EveryPolitician::Infobox.new(Pathname.new("test/data/#{datafile}").read).positions.map(&:command_data).sort_by { |data| data[:P580] }
-  end
+  let(:pathname)  { Pathname.new("test/data/#{datafile}") }
+  let(:infobox)   { EveryPolitician::Infobox.new(pathname.read) }
+  let(:positions) { infobox.positions.map(&:command_data).sort_by { |data| data[:P580].to_s } }
 
   describe 'Annabel Goldie' do
     let(:datafile) { 'AG.json' }
@@ -157,12 +157,44 @@ describe EveryPolitician::Infobox do
   describe 'ʻAisake Eke' do
     let(:datafile) { 'AE.json' }
 
-    it 'handles constituency_MP roles' do
+    it 'handles normal data for constituency_MP roles' do
       assert_equal 2, positions.count
-      assert_includes positions[0][:P580], '2010-11-25'
-      assert_includes positions[0][:P582], '2017-11-16'
-      assert_includes positions[0][:P768][:stated_as], 'Tongatapu 5'
+      assert_equal('2010-11-25', positions[0][:P580])
+      assert_equal('2017-11-16', positions[0][:P582])
+    end
+
+    it 'rewrites constituency MP offices' do
       assert_includes positions[0][:office][:stated_as], 'Member of Parliament'
+    end
+
+    it 'handles constituency_MP districts' do
+      assert_includes positions[0][:P768][:stated_as], 'Tongatapu 5'
+    end
+  end
+
+  describe 'Tomaž Gantar' do
+    let(:datafile) { 'TG.json' }
+    let(:infobox)  { EveryPolitician::Infobox.new(pathname.read, 'sl') }
+
+    it 'handles Slovenian dates' do
+      assert_equal 4, positions.count
+
+      # the first position is null, because of a bare 'order'
+      assert_equal(%w[2012-02-11 2013-02-22], positions[1].values_at(:P580, :P582))
+      assert_equal(%w[2013-03-20 2013-11-25], positions[2].values_at(:P580, :P582))
+      assert_equal(%w[2020-03-13 2020-12-18], positions[3].values_at(:P580, :P582))
+    end
+  end
+
+  describe 'Dejan Židan' do
+    let(:datafile) { 'DZh.json' }
+    let(:infobox)  { EveryPolitician::Infobox.new(pathname.read, 'sl') }
+
+    it 'handles Slovenian dates' do
+      assert_equal 2, positions.count
+
+      assert_equal(%w[2010-05-05 2018], positions[0].values_at(:P580, :P582))
+      assert_equal(%w[2018-08-23 2020-03-03], positions[1].values_at(:P580, :P582))
     end
   end
 end

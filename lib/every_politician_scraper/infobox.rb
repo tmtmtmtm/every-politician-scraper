@@ -73,6 +73,16 @@ class DateString
   end
 end
 
+# Transform Slovenian dates into English ones
+class DateStringSL < DateString
+  REMAP = %w[ZZZ januar februar marec aprila maj junij julij avgust september oktober november december].freeze
+  MONTHS_RE = Regexp.new REMAP.join('|')
+
+  def str
+    super.gsub(MONTHS_RE) { |match| MONTHS[REMAP.index(match)] }
+  end
+end
+
 module EveryPolitician
   # a Wikipedia Infobox
   class Infobox
@@ -101,8 +111,9 @@ module EveryPolitician
 
     # A person can have held one or more positions one or more times
     class Position
-      def initialize(data)
+      def initialize(data, lang)
         @data = data
+        @lang = lang
       end
 
       def command_data
@@ -119,7 +130,13 @@ module EveryPolitician
 
       private
 
-      attr_reader :data
+      attr_reader :data, :lang
+
+      def dateclass
+        return DateStringSL if lang == 'sl'
+
+        DateString
+      end
 
       def office
         Link.new(data[:office])
@@ -128,31 +145,31 @@ module EveryPolitician
       def start_time
         return unless term_start_raw
 
-        DateString.new(term_start_raw).to_s
+        dateclass.new(term_start_raw).to_s
       end
 
       def end_time
         return unless term_end_raw
 
-        DateString.new(term_end_raw).to_s
+        dateclass.new(term_end_raw).to_s
       end
 
       def constituency
-        return unless constituency_raw
+        raw = data[:constituency] or return
 
-        Link.new(constituency_raw).to_h
+        Link.new(raw).to_h
       end
 
       def replaces
-        return unless predecessor
+        raw = data[:predecessor] or return
 
-        Link.new(predecessor).to_h
+        Link.new(raw).to_h
       end
 
       def replaced_by
-        return unless successor
+        raw = data[:successor] or return
 
-        Link.new(successor).to_h
+        Link.new(raw).to_h
       end
 
       def ordinal
@@ -167,18 +184,6 @@ module EveryPolitician
         data.dig(:term_end, :text) || data.dig(:termend, :text) || combo_term_parts.last
       end
 
-      def constituency_raw
-        data[:constituency]
-      end
-
-      def successor
-        data[:successor]
-      end
-
-      def predecessor
-        data[:predecessor]
-      end
-
       def combo_term
         data.dig(:term, :text)
       end
@@ -190,12 +195,13 @@ module EveryPolitician
       end
     end
 
-    def initialize(raw_json)
+    def initialize(raw_json, lang = 'en')
       @raw_json = raw_json
+      @lang     = lang
     end
 
     def positions
-      filled_offices.compact.map { |office| Position.new(office) }
+      filled_offices.compact.map { |office| Position.new(office, lang) }
     end
 
     def title
@@ -220,19 +226,15 @@ module EveryPolitician
       @infobox_hash ||= infoboxes_with_positions.reduce(&:merge)
     end
 
-    def grouped_sections
-      infobox_hash.group_by { |key, _| (key[/(\d+)$/, 1] || 0) }
-                  .sort_by { |num, _| num.to_i }
-    end
-
     def offices
-      @offices ||= grouped_sections
-                   .map { |_, val| val.to_h.transform_keys(&:unnumbered) }
-                   .each { |office| office[:office] ||= office.values_at(:order, :constituency_mp).compact.first }
+      @offices ||= infobox_hash.group_by { |key, _| (key[/(\d+)$/, 1] || 0) }
+                               .map { |num, rows| InfoboxSection.new(num, rows) }
+                               .sort_by(&:num)
+                               .map(&:to_h)
     end
 
     def filled_offices
-      restructured_offices.each_with_index.map do |office, index|
+      offices.each_with_index.map do |office, index|
         this_office = office[:office] || next
         next_office = offices[index + 1]
         next_office[:office] ||= this_office if next_office
@@ -240,15 +242,34 @@ module EveryPolitician
       end
     end
 
-    # TODO: make sure this copes with other types of legislative positions
-    def restructured_offices
-      offices.select { |office| office.key? :constituency_mp }.each do |office|
-        office[:constituency] = office[:constituency_mp]
-        office[:office] = { text: 'Member of Parliament' }
-      end
-      offices
+    attr_reader :raw_json, :lang
+  end
+
+  # A section of an Infobox, usually relating to a Position held
+  #   based on each 'key' ending with the same number
+  class InfoboxSection
+    def initialize(num, rows)
+      @num = num.to_i
+      @rows = rows
     end
 
-    attr_reader :raw_json
+    def office
+      return { text: 'Member of Parliament' } if hash[:constituency_mp]
+
+      hash.values_at(:office, :order).compact.first
+    end
+
+    def to_h
+      hash.merge(
+        office:       office,
+        constituency: hash[:constituency_mp]
+      )
+    end
+
+    attr_reader :num, :rows
+
+    def hash
+      @hash = rows.to_h.transform_keys(&:unnumbered)
+    end
   end
 end
