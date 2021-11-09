@@ -136,7 +136,7 @@ module EveryPoliticianScraper
             ?genderItem rdfs:label ?gender
           }
         }
-        ORDER BY STR(?name) STR(?position) ?began ?wdid ?sourceDate
+        ORDER BY ?wdLabel ?pid ?sourceDate
       SPARQL
     end
   end
