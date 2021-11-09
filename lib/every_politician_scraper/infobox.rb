@@ -219,7 +219,7 @@ module EveryPolitician
     end
 
     def infoboxes_with_positions
-      infoboxes.select { |box| (box.transform_keys(&:unnumbered).keys & %i[office order constituency_mp]).any? }
+      infoboxes.select { |box| (box.transform_keys(&:unnumbered).keys & %i[office order parliament constituency_mp]).any? }
     end
 
     def infobox_hash
@@ -254,7 +254,7 @@ module EveryPolitician
     end
 
     def office
-      return { text: 'Member of Parliament' } if hash[:constituency_mp]
+      return { text: 'Member of Parliament' } if hash[:constituency_mp] || hash[:riding]
 
       hash.values_at(:office, :order).compact.first
     end
@@ -262,7 +262,7 @@ module EveryPolitician
     def to_h
       hash.merge(
         office:       office,
-        constituency: hash[:constituency_mp]
+        constituency: hash[:constituency_mp] || hash[:riding]
       )
     end
 
