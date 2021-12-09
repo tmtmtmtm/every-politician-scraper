@@ -92,7 +92,7 @@ module EveryPoliticianScraper
       <<~SPARQL
         SELECT DISTINCT (STRAFTER(STR(?item), STR(wd:)) AS ?wdid)
                ?name ?wdLabel ?gender ?dob ?dobPrecision ?source ?sourceDate
-               (STRAFTER(STR(?positionItem), STR(wd:)) AS ?pid) ?position
+               (STRAFTER(STR(?positionItem), STR(wd:)) AS ?pid) ?position ?start
                (STRAFTER(STR(?held), '/statement/') AS ?psid)
         WHERE {
           BIND (wd:#{cabinet} AS ?cabinet) .
