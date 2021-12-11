@@ -60,12 +60,16 @@ module EveryPoliticianScraper
       Daff::Coopy.compare_tables(wikidata_tv, external_tv).align
     end
 
-    # Ugh. :reek:FeatureEnvy
-    def highlighter
+    # Ugh. :reek:FeatureEnvy _and_ :reek:UtilityFunction
+    def flags
       flags = Daff::CompareFlags.new
       flags.ordered = false
       flags.unchanged_context = 0
       flags.show_unchanged_columns = true
+      flags
+    end
+
+    def highlighter
       Daff::TableDiff.new(alignment, flags)
     end
   end
