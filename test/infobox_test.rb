@@ -197,4 +197,17 @@ describe EveryPolitician::Infobox do
       assert_equal(%w[2018-08-23 2020-03-03], positions[1].values_at(:P580, :P582))
     end
   end
+
+  describe 'Marian Jurečka' do
+    let(:datafile) { 'MJ.json' }
+    let(:infobox)  { EveryPolitician::Infobox.new(pathname.read, 'sl') }
+
+    it 'copes with only having a title' do
+      assert_equal 4, positions.count
+      mlsa = positions.last
+
+      assert_equal('2021-12-17', mlsa[:P580])
+      assert_equal('Minister of Labour and Social Affairs', mlsa[:office][:stated_as])
+    end
+  end
 end
