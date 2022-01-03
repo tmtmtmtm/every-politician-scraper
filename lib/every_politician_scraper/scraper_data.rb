@@ -133,7 +133,7 @@ class WikipediaDate
   end
 
   def to_s
-    return if date_en.to_s.empty?
+    return if date_en.to_s.tidy.empty?
     return date_obj.to_s if format_ymd?
     return date_obj_ym if format_ym?
     return date_en if format_y?
@@ -177,8 +177,36 @@ class WikipediaDate
     date_en =~ /^\d{4}$/
   end
 
-  # Ukrainian month names
-  class Ukraine < WikipediaDate
+  # Portuguese dates
+  class Portuguese < WikipediaDate
+    REMAP = {
+      'atualidade'      => '',
+      'em exercício'    => '',
+      'de janeiro de'   => 'January',
+      'de fevereiro de' => 'February',
+      'de março de'     => 'March',
+      'de abril de'     => 'April',
+      'de maio de'      => 'May',
+      'de junho de'     => 'June',
+      'de julho de'     => 'July',
+      'de agosto de'    => 'August',
+      'de setembro de'  => 'September',
+      'de outubro de'   => 'October',
+      'de novembro de'  => 'November',
+      'de dezembro de'  => 'December',
+    }.freeze
+
+    def date_str
+      super.gsub('º', '')
+    end
+
+    def remap
+      super.merge(REMAP)
+    end
+  end
+
+  # Ukrainian dates
+  class Ukrainian < WikipediaDate
     REMAP = {
       'по т.ч.'   => '',
       'січня'     => 'January',
@@ -245,7 +273,7 @@ class OfficeholderListBase < Scraped::HTML
   # Base class for a single entry in the list of Officeholders
   class OfficeholderBase < Scraped::HTML
     def empty?
-      tds.first.text == tds.last.text
+      itemLabel.to_s.tidy.empty?
     end
 
     field :item do
@@ -327,7 +355,8 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def date_class
-      return WikipediaDate::Ukraine if /uk.wikipedia.org/.match?(url)
+      return WikipediaDate::Portuguese if /pt.wikipedia.org/.match?(url)
+      return WikipediaDate::Ukrainian if /uk.wikipedia.org/.match?(url)
 
       WikipediaDate
     end
