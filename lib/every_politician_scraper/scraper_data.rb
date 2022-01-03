@@ -128,12 +128,6 @@ end
 # Handle a variety of date formats seen on Wikipedia
 # Subclass this to remap foreign language dates
 class WikipediaDate
-  REMAP = {
-    'Incumbent' => '',
-    'incumbent' => '',
-    'Present'   => '',
-  }.freeze
-
   def initialize(date_str)
     @date_str = date_str
   end
@@ -145,6 +139,14 @@ class WikipediaDate
     return date_en if format_y?
 
     raise "Unknown date format: #{date_en}"
+  end
+
+  def remap
+    {
+      'Incumbent' => '',
+      'incumbent' => '',
+      'Present'   => '',
+    }
   end
 
   private
@@ -160,7 +162,7 @@ class WikipediaDate
   end
 
   def date_en
-    @date_en ||= REMAP.reduce(date_str) { |str, (ro, en)| str.sub(ro, en) }
+    @date_en ||= remap.reduce(date_str) { |str, (local, eng)| str.to_s.sub(local, eng) }
   end
 
   def format_ymd?
@@ -173,6 +175,29 @@ class WikipediaDate
 
   def format_y?
     date_en =~ /^\d{4}$/
+  end
+
+  # Ukrainian month names
+  class Ukraine < WikipediaDate
+    REMAP = {
+      'по т.ч.'   => '',
+      'січня'     => 'January',
+      'лютого'    => 'February',
+      'березня'   => 'March',
+      'квітня'    => 'April',
+      'травня'    => 'May',
+      'червня'    => 'June',
+      'липня'     => 'July',
+      'серпня'    => 'August',
+      'вересня'   => 'September',
+      'жовтня'    => 'October',
+      'листопада' => 'November',
+      'грудня'    => 'December',
+    }.freeze
+
+    def remap
+      super.merge(REMAP)
+    end
   end
 end
 
@@ -278,11 +303,15 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def raw_combo_date
-      combo_date_cell.text.split(/[—–-]/).map(&:tidy)
+      combo_date_cell.text
+    end
+
+    def raw_combo_dates
+      raw_combo_date.split(/[—–-]/).map(&:tidy)
     end
 
     def combo_date
-      rstart, rend = raw_combo_date
+      rstart, rend = raw_combo_dates
       # Add missing year if in format "April 8 - May 20 2019"
       return ["#{rstart}, #{rend[-4..]}", rend] unless rstart[/\d{4}$/]
 
@@ -298,6 +327,8 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def date_class
+      return WikipediaDate::Ukraine if /uk.wikipedia.org/.match?(url)
+
       WikipediaDate
     end
   end
