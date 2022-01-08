@@ -178,6 +178,33 @@ class WikipediaDate
     date_en =~ /^\d{4}$/
   end
 
+  # French dates
+  class French < WikipediaDate
+    REMAP = {
+      'en cours'  => '',
+      'januar'    => 'January',
+      'février'   => 'February',
+      'mars'      => 'March',
+      'avril'     => 'April',
+      'mai'       => 'May',
+      'juin'      => 'June',
+      'juillet'   => 'July',
+      'août'      => 'August',
+      'septembre' => 'September',
+      'octobre'   => 'October',
+      'novembre'  => 'November',
+      'décembre'  => 'December',
+    }.freeze
+
+    def remap
+      super.merge(REMAP)
+    end
+
+    def date_str
+      super.gsub('1er', '1')
+    end
+  end
+
   # Portuguese dates
   class Portuguese < WikipediaDate
     REMAP = {
@@ -356,6 +383,7 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def date_class
+      return WikipediaDate::French if /fr.wikipedia.org/.match?(url)
       return WikipediaDate::Portuguese if /pt.wikipedia.org/.match?(url)
       return WikipediaDate::Ukrainian if /uk.wikipedia.org/.match?(url)
 
