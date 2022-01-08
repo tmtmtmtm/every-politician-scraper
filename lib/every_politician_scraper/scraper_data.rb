@@ -181,19 +181,20 @@ class WikipediaDate
   # French dates
   class French < WikipediaDate
     REMAP = {
-      'en cours'  => '',
-      'januar'    => 'January',
-      'février'   => 'February',
-      'mars'      => 'March',
-      'avril'     => 'April',
-      'mai'       => 'May',
-      'juin'      => 'June',
-      'juillet'   => 'July',
-      'août'      => 'August',
-      'septembre' => 'September',
-      'octobre'   => 'October',
-      'novembre'  => 'November',
-      'décembre'  => 'December',
+      "aujourd'hui" => '',
+      'en cours'    => '',
+      'januar'      => 'January',
+      'février'     => 'February',
+      'mars'        => 'March',
+      'avril'       => 'April',
+      'mai'         => 'May',
+      'juin'        => 'June',
+      'juillet'     => 'July',
+      'août'        => 'August',
+      'septembre'   => 'September',
+      'octobre'     => 'October',
+      'novembre'    => 'November',
+      'décembre'    => 'December',
     }.freeze
 
     def remap
@@ -227,6 +228,29 @@ class WikipediaDate
     def date_str
       super.gsub(/[º°]/, '')
     end
+
+    def remap
+      super.merge(REMAP)
+    end
+  end
+
+  # Spanish dates
+  class Spanish < WikipediaDate
+    REMAP = {
+      'En el cargo'      => '',
+      'de enero de'      => 'January',
+      'de febrero de'    => 'February',
+      'de marzo de'      => 'March',
+      'de abril de'      => 'April',
+      'de mayo de'       => 'May',
+      'de junio de'      => 'June',
+      'de julio de'      => 'July',
+      'de agosto de'     => 'August',
+      'de septiembre de' => 'September',
+      'de octubre de'    => 'October',
+      'de noviembre de'  => 'November',
+      'de diciembre de'  => 'December',
+    }.freeze
 
     def remap
       super.merge(REMAP)
@@ -385,6 +409,7 @@ class OfficeholderListBase < Scraped::HTML
     def date_class
       return WikipediaDate::French if /fr.wikipedia.org/.match?(url)
       return WikipediaDate::Portuguese if /pt.wikipedia.org/.match?(url)
+      return WikipediaDate::Spanish if /es.wikipedia.org/.match?(url)
       return WikipediaDate::Ukrainian if /uk.wikipedia.org/.match?(url)
 
       WikipediaDate
