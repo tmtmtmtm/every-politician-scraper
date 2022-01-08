@@ -257,6 +257,29 @@ class WikipediaDate
     end
   end
 
+  # Turkish dates
+  class Turkish < WikipediaDate
+    REMAP = {
+      'Görevde' => '',
+      'Ocak'    => 'January',
+      'Şubat'   => 'February',
+      'Mart'    => 'March',
+      'Nisan'   => 'April',
+      'Mayıs'   => 'May',
+      'Haziran' => 'June',
+      'Temmuz'  => 'July',
+      'Ağustos' => 'August',
+      'Eylül'   => 'September',
+      'Ekim'    => 'October',
+      'Kasım'   => 'November',
+      'Aralık'  => 'December',
+    }.freeze
+
+    def remap
+      super.merge(REMAP)
+    end
+  end
+
   # Ukrainian dates
   class Ukrainian < WikipediaDate
     REMAP = {
@@ -324,6 +347,14 @@ class OfficeholderListBase < Scraped::HTML
 
   # Base class for a single entry in the list of Officeholders
   class OfficeholderBase < Scraped::HTML
+    LANG = {
+      fr: WikipediaDate::French,
+      pt: WikipediaDate::Portuguese,
+      es: WikipediaDate::Spanish,
+      tr: WikipediaDate::Turkish,
+      uk: WikipediaDate::Ukrainian,
+    }.freeze
+
     def empty?
       itemLabel.to_s.tidy.empty?
     end
@@ -407,12 +438,7 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def date_class
-      return WikipediaDate::French if /fr.wikipedia.org/.match?(url)
-      return WikipediaDate::Portuguese if /pt.wikipedia.org/.match?(url)
-      return WikipediaDate::Spanish if /es.wikipedia.org/.match?(url)
-      return WikipediaDate::Ukrainian if /uk.wikipedia.org/.match?(url)
-
-      WikipediaDate
+      LANG.fetch(url[/(\w+)\.wikipedia.org/, 1].to_sym, WikipediaDate)
     end
   end
 end
