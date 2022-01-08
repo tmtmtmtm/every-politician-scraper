@@ -234,6 +234,32 @@ class WikipediaDate
     end
   end
 
+  class Russian < WikipediaDate
+    REMAP = {
+      'Настоящее время' => '',
+      'января'          => 'January',
+      'февраля'         => 'February',
+      'марта'           => 'March',
+      'апреля'          => 'April',
+      'мая'             => 'May',
+      'июня'            => 'June',
+      'июля'            => 'July',
+      'августа'         => 'August',
+      'сентября'        => 'September',
+      'октября'         => 'October',
+      'ноября'          => 'November',
+      'декабря'         => 'December',
+    }.freeze
+
+    def remap
+      super.merge(REMAP)
+    end
+
+    def date_str
+      super.gsub(' года', '')
+    end
+  end
+
   # Spanish dates
   class Spanish < WikipediaDate
     REMAP = {
@@ -348,9 +374,10 @@ class OfficeholderListBase < Scraped::HTML
   # Base class for a single entry in the list of Officeholders
   class OfficeholderBase < Scraped::HTML
     LANG = {
+      es: WikipediaDate::Spanish,
       fr: WikipediaDate::French,
       pt: WikipediaDate::Portuguese,
-      es: WikipediaDate::Spanish,
+      ru: WikipediaDate::Russian,
       tr: WikipediaDate::Turkish,
       uk: WikipediaDate::Ukrainian,
     }.freeze
