@@ -147,6 +147,8 @@ class WikipediaDate
       'incumbent' => '',
       'Present'   => '',
       'present'   => '',
+      'current'   => '',
+      'Current'   => '',
     }
   end
 
@@ -176,6 +178,29 @@ class WikipediaDate
 
   def format_y?
     date_en =~ /^\d{4}$/
+  end
+
+  # Bulgarian dates
+  class Bulgarian < WikipediaDate
+    REMAP = {
+      '…'         => '',
+      'януари'    => 'January',
+      'февруари'  => 'February',
+      'март'      => 'March',
+      'април'     => 'April',
+      'май'       => 'May',
+      'юни'       => 'June',
+      'юли'       => 'July',
+      'август'    => 'August',
+      'септември' => 'September',
+      'октомври'  => 'October',
+      'ноември'   => 'November',
+      'декември'  => 'December',
+    }.freeze
+
+    def remap
+      super.merge(REMAP)
+    end
   end
 
   # French dates
@@ -234,6 +259,7 @@ class WikipediaDate
     end
   end
 
+  # Russian dates
   class Russian < WikipediaDate
     REMAP = {
       'Настоящее время' => '',
@@ -374,6 +400,7 @@ class OfficeholderListBase < Scraped::HTML
   # Base class for a single entry in the list of Officeholders
   class OfficeholderBase < Scraped::HTML
     LANG = {
+      bg: WikipediaDate::Bulgarian,
       es: WikipediaDate::Spanish,
       fr: WikipediaDate::French,
       pt: WikipediaDate::Portuguese,
