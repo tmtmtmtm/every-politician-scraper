@@ -264,17 +264,30 @@ class WikipediaDate
     REMAP = {
       'Настоящее время' => '',
       'января'          => 'January',
+      'январь'          => 'January',
       'февраля'         => 'February',
+      'февраль'         => 'February',
+      'март'            => 'March',
       'марта'           => 'March',
       'апреля'          => 'April',
+      'апрель'          => 'April',
       'мая'             => 'May',
+      'май'             => 'May',
       'июня'            => 'June',
+      'июнь'            => 'June',
       'июля'            => 'July',
+      'июль'            => 'July',
       'августа'         => 'August',
+      'август'          => 'August',
       'сентября'        => 'September',
+      'сентябрь'        => 'September',
       'октября'         => 'October',
+      'октябрь'         => 'October',
+      'октяябрь'        => 'October',
       'ноября'          => 'November',
+      'ноябрь'          => 'November',
       'декабря'         => 'December',
+      'декабрь'         => 'December',
     }.freeze
 
     def remap
@@ -290,6 +303,7 @@ class WikipediaDate
   class Spanish < WikipediaDate
     REMAP = {
       'En el cargo'      => '',
+      'en el cargo'      => '',
       'de enero de'      => 'January',
       'de febrero de'    => 'February',
       'de marzo de'      => 'March',
