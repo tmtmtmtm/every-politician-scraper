@@ -180,6 +180,30 @@ class WikipediaDate
     date_en =~ /^\d{4}$/
   end
 
+  # Belarussian dates
+  class Belarussian < WikipediaDate
+    REMAP = {
+      'студзеня'    => 'January',
+      'лютага'      => 'February',
+      'сакавіка'    => 'March',
+      'Красавік'    => 'April',
+      'мая'         => 'May',
+      'чэрвеня'     => 'June',
+      'Ліпень'      => 'July',
+      'ліпеня'      => 'July',
+      'жніўня'      => 'August',
+      'верасня'     => 'September',
+      'кастрычніка' => 'October',
+      'лістапада'   => 'November',
+      'Снежань'     => 'December',
+      'снежня'      => 'December',
+    }.freeze
+
+    def remap
+      super.merge(REMAP)
+    end
+  end
+
   # Bulgarian dates
   class Bulgarian < WikipediaDate
     REMAP = {
@@ -437,6 +461,7 @@ class OfficeholderListBase < Scraped::HTML
   # Base class for a single entry in the list of Officeholders
   class OfficeholderBase < Scraped::HTML
     LANG = {
+      be: WikipediaDate::Belarussian,
       bg: WikipediaDate::Bulgarian,
       es: WikipediaDate::Spanish,
       fr: WikipediaDate::French,
