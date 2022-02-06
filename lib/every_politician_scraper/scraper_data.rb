@@ -349,24 +349,29 @@ class WikipediaDate
   # Spanish dates
   class Spanish < WikipediaDate
     REMAP = {
-      'En el cargo'      => '',
-      'en el cargo'      => '',
-      'de enero de'      => 'January',
-      'de febrero de'    => 'February',
-      'de marzo de'      => 'March',
-      'de abril de'      => 'April',
-      'de mayo de'       => 'May',
-      'de junio de'      => 'June',
-      'de julio de'      => 'July',
-      'de agosto de'     => 'August',
-      'de septiembre de' => 'September',
-      'de octubre de'    => 'October',
-      'de noviembre de'  => 'November',
-      'de diciembre de'  => 'December',
+      'A la fecha'  => '',
+      'En el cargo' => '',
+      'en el cargo' => '',
+      'enero'       => 'January',
+      'febrero'     => 'February',
+      'marzo'       => 'March',
+      'abril'       => 'April',
+      'mayo'        => 'May',
+      'junio'       => 'June',
+      'julio'       => 'July',
+      'agosto'      => 'August',
+      'septiembre'  => 'September',
+      'octubre'     => 'October',
+      'noviembre'   => 'November',
+      'diciembre'   => 'December',
     }.freeze
 
     def remap
       super.merge(REMAP)
+    end
+
+    def date_en
+      super.gsub(' de ', ' ').tidy
     end
   end
 
