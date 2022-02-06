@@ -512,7 +512,7 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def tds
-      noko.css('td')
+      noko.css('th,td')
     end
 
     def name_cell
