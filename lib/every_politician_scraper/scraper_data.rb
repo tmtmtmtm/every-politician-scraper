@@ -456,11 +456,15 @@ class OfficeholderListBase < Scraped::HTML
   end
 
   def holder_entries
-    noko.xpath("//table[.//th[contains(.,'#{header_column}')]][last()]//tr[td]")
+    noko.xpath("//table[.//th[contains(.,'#{header_column}')]][#{table_number}]//tr[td]")
   end
 
   def header_column
     raise 'need to define a header_column'
+  end
+
+  def table_number
+    'last()'
   end
 
   # Base class for a single entry in the list of Officeholders
