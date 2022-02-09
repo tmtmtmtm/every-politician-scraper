@@ -349,21 +349,22 @@ class WikipediaDate
   # Spanish dates
   class Spanish < WikipediaDate
     REMAP = {
-      'A la fecha'  => '',
-      'En el cargo' => '',
-      'en el cargo' => '',
-      'enero'       => 'January',
-      'febrero'     => 'February',
-      'marzo'       => 'March',
-      'abril'       => 'April',
-      'mayo'        => 'May',
-      'junio'       => 'June',
-      'julio'       => 'July',
-      'agosto'      => 'August',
-      'septiembre'  => 'September',
-      'octubre'     => 'October',
-      'noviembre'   => 'November',
-      'diciembre'   => 'December',
+      'A la fecha'   => '',
+      'En funciones' => '',
+      'En el cargo'  => '',
+      'en el cargo'  => '',
+      'enero'        => 'January',
+      'febrero'      => 'February',
+      'marzo'        => 'March',
+      'abril'        => 'April',
+      'mayo'         => 'May',
+      'junio'        => 'June',
+      'julio'        => 'July',
+      'agosto'       => 'August',
+      'septiembre'   => 'September',
+      'octubre'      => 'October',
+      'noviembre'    => 'November',
+      'diciembre'    => 'December',
     }.freeze
 
     def remap
