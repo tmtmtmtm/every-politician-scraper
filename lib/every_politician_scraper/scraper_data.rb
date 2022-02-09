@@ -423,6 +423,13 @@ class WikipediaDate
   end
 end
 
+# Decorator to change ZeroWidthSpaces to regualar ones
+class ReplaceZeroWidthSpaces < Scraped::Response::Decorator
+  def body
+    super.gsub(/[\u200B-\u200D\uFEFF]/, ' ')
+  end
+end
+
 # Decorator to remove all References
 class RemoveReferences < Scraped::Response::Decorator
   def body
