@@ -278,6 +278,33 @@ class WikipediaDate
     end
   end
 
+  # Lithuanian dates
+  class Lithuanian < WikipediaDate
+    REMAP = {
+      'dabar'     => '',
+      'sausio'    => 'January',
+      'vasario'   => 'February',
+      'kovo'      => 'March',
+      'balandžio' => 'April',
+      'gegužės'   => 'May',
+      'birželio'  => 'June',
+      'liepos'    => 'July',
+      'rugpjūčio' => 'August',
+      'rugsėjo'   => 'September',
+      'spalio'    => 'October',
+      'lapkričio' => 'November',
+      'gruodžio'  => 'December',
+    }.freeze
+
+    def date_en
+      super.gsub(' m.', ' ').gsub(' d.', ' ').tidy.split.reverse.join(' ')
+    end
+
+    def remap
+      super.merge(REMAP)
+    end
+  end
+
   # Portuguese dates
   class Portuguese < WikipediaDate
     REMAP = {
@@ -483,6 +510,7 @@ class OfficeholderListBase < Scraped::HTML
       es: WikipediaDate::Spanish,
       fr: WikipediaDate::French,
       id: WikipediaDate::Indonesian,
+      lt: WikipediaDate::Lithuanian,
       pt: WikipediaDate::Portuguese,
       ru: WikipediaDate::Russian,
       tr: WikipediaDate::Turkish,
