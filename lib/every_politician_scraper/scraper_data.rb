@@ -481,6 +481,8 @@ end
 # Base class for a list of Officeholders
 class OfficeholderListBase < Scraped::HTML
   field :members do
+    raise "No holder_entries found" if holder_entries.empty?
+
     holder_entries.map { |ul| fragment(ul => member_class) }.reject(&:empty?).map(&:to_h).uniq
   end
 
