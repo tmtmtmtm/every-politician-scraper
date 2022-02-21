@@ -544,13 +544,13 @@ class OfficeholderListBase < Scraped::HTML
     def raw_start
       return combo_date.first if combo_date?
 
-      start_cell.text.tidy
+      start_cell.text.gsub(/\(.*?\)/, '').tidy
     end
 
     def raw_end
       return combo_date.last if combo_date?
 
-      end_cell.text.tidy
+      end_cell.text.gsub(/\(.*?\)/, '').gsub('†', '').tidy
     end
 
     def tds
