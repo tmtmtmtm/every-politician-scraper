@@ -520,7 +520,7 @@ class OfficeholderListBase < Scraped::HTML
     }.freeze
 
     def empty?
-      itemLabel.to_s.tidy.empty?
+      (tds.first.text == tds.last.text) || itemLabel.to_s.tidy.empty?
     end
 
     field :item do
