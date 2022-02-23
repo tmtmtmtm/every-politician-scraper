@@ -337,12 +337,13 @@ class WikipediaDate
   class Russian < WikipediaDate
     REMAP = {
       'Настоящее время' => '',
+      'настоящее время' => '',
       'января'          => 'January',
       'январь'          => 'January',
       'февраля'         => 'February',
       'февраль'         => 'February',
-      'март'            => 'March',
       'марта'           => 'March',
+      'март'            => 'March',
       'апреля'          => 'April',
       'апрель'          => 'April',
       'мая'             => 'May',
