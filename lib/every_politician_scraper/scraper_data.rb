@@ -200,7 +200,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
   end
 
@@ -223,7 +223,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
   end
 
@@ -247,7 +247,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
 
     def date_str
@@ -274,7 +274,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
   end
 
@@ -301,7 +301,7 @@ class WikipediaDate
     end
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
   end
 
@@ -329,7 +329,7 @@ class WikipediaDate
     end
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
   end
 
@@ -369,7 +369,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
 
     def date_str
@@ -400,7 +400,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
 
     def date_en
@@ -427,7 +427,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
   end
 
@@ -450,7 +450,7 @@ class WikipediaDate
     }.freeze
 
     def remap
-      super.merge(REMAP)
+      REMAP.merge(super)
     end
   end
 end
