@@ -338,6 +338,8 @@ class WikipediaDate
     REMAP = {
       'Настоящее время' => '',
       'настоящее время' => '',
+      'наст. время'     => '',
+      'в должности'     => '',
       'н. в.'           => '',
       'января'          => 'January',
       'январь'          => 'January',
@@ -382,6 +384,7 @@ class WikipediaDate
       'En funciones' => '',
       'En el cargo'  => '',
       'en el cargo'  => '',
+      'presente'     => '',
       'enero'        => 'January',
       'febrero'      => 'February',
       'marzo'        => 'March',
@@ -401,7 +404,7 @@ class WikipediaDate
     end
 
     def date_en
-      super.gsub(' de ', ' ').tidy
+      super.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
     end
   end
 
