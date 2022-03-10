@@ -486,7 +486,7 @@ end
 # Base class for a list of Officeholders
 class OfficeholderListBase < Scraped::HTML
   field :members do
-    raise "No holder_entries found" if holder_entries.empty?
+    raise 'No holder_entries found' if holder_entries.empty?
 
     holder_entries.map { |ul| fragment(ul => member_class) }.reject(&:empty?).map(&:to_h).uniq
   end
@@ -529,10 +529,14 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     field :item do
+      return name_node.attr('wikidata') if name_node
+
       name_cell.css('a/@wikidata').map(&:text).first
     end
 
     field :itemLabel do
+      return name_node.text.tidy if name_node
+
       name_link_text || name_cell.text.tidy
     end
 
@@ -555,11 +559,16 @@ class OfficeholderListBase < Scraped::HTML
     def raw_end
       return combo_date.last if combo_date?
 
-      end_cell.text.gsub(/\(.*?\)/, '').gsub('†', '').tidy
+      end_cell.text.gsub(/\(.*?\)/, '').delete('†').tidy
     end
 
     def tds
       noko.css('th,td')
+    end
+
+    # Override this if the name is only one of multiple links within the cell
+    def name_node
+      nil
     end
 
     def name_cell
