@@ -227,6 +227,28 @@ class WikipediaDate
     end
   end
 
+  # Estonian dates
+  class Estonian < WikipediaDate
+    REMAP = {
+      'januaar'   => 'January',
+      'veebruar'  => 'February',
+      'marts'     => 'March',
+      'aprill'    => 'April',
+      'mai'       => 'May',
+      'juuni'     => 'June',
+      'juuli'     => 'July',
+      'august'    => 'August',
+      'september' => 'September',
+      'oktoober'  => 'October',
+      'november'  => 'November',
+      'detsember' => 'December',
+    }.freeze
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # French dates
   class French < WikipediaDate
     REMAP = {
@@ -515,6 +537,7 @@ class OfficeholderListBase < Scraped::HTML
       be: WikipediaDate::Belarussian,
       bg: WikipediaDate::Bulgarian,
       es: WikipediaDate::Spanish,
+      et: WikipediaDate::Estonian,
       fr: WikipediaDate::French,
       id: WikipediaDate::Indonesian,
       lt: WikipediaDate::Lithuanian,
