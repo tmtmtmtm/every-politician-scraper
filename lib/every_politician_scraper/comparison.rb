@@ -73,4 +73,60 @@ module EveryPoliticianScraper
       Daff::TableDiff.new(alignment, flags)
     end
   end
+
+  # A comparison where we don't care about things that want to be NULL
+  #  i.e. where Wikidata has additional information that the source doesn't
+  # We care if it exists, but is different, but not if it's missing
+  class NulllessComparison < Comparison
+    # bass class for working with Daff Table
+    class DiffThing
+      def initialize(data)
+        @data = data
+      end
+
+      attr_reader :data
+    end
+
+    # the whole Daff Table
+    class DiffTable < DiffThing
+      def denulled
+        data.map { |row| DiffRow.new(row).denulled }.compact
+      end
+    end
+
+    # a row of a Daff Table
+    class DiffRow < DiffThing
+      def denulled
+        return data if header_row?
+        return nil unless still_has_diffs?
+
+        remapped
+      end
+
+      private
+
+      def remapped
+        data.map { |cell| DiffCell.new(cell).denulled }
+      end
+
+      def header_row?
+        data.first == '@@'
+      end
+
+      def still_has_diffs?
+        remapped.drop(1).any? { |cell| cell.to_s.include? '->' }
+      end
+    end
+
+    # a cell from a Daff Table
+    class DiffCell < DiffThing
+      def denulled
+        data.is_a?(String) ? data.gsub('->NULL', '') : data
+      end
+    end
+
+    def diff
+      DiffTable.new(super).denulled
+    end
+  end
 end
