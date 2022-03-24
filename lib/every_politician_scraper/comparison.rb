@@ -97,7 +97,7 @@ module EveryPoliticianScraper
     # a row of a Daff Table
     class DiffRow < DiffThing
       def denulled
-        return data if header_row?
+        return data unless change_row?
         return nil unless still_has_diffs?
 
         remapped
@@ -109,8 +109,8 @@ module EveryPoliticianScraper
         data.map { |cell| DiffCell.new(cell).denulled }
       end
 
-      def header_row?
-        data.first == '@@'
+      def change_row?
+        data.first == '->'
       end
 
       def still_has_diffs?
