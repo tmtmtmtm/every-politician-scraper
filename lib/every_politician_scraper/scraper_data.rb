@@ -180,6 +180,13 @@ class WikipediaDate
     date_en =~ /^\d{4}$/
   end
 
+  # Dates in the form 24.12.2007
+  class DottedDMY < WikipediaDate
+    def to_s
+      date_en.to_s.split('.').reverse.join('-')
+    end
+  end
+
   # Belarussian dates
   class Belarussian < WikipediaDate
     REMAP = {
@@ -358,36 +365,38 @@ class WikipediaDate
   # Russian dates
   class Russian < WikipediaDate
     REMAP = {
-      'Настоящее время' => '',
-      'настоящее время' => '',
-      'наст. время'     => '',
-      'в должности'     => '',
-      'н. в.'           => '',
-      'января'          => 'January',
-      'январь'          => 'January',
-      'февраля'         => 'February',
-      'февраль'         => 'February',
-      'марта'           => 'March',
-      'март'            => 'March',
-      'апреля'          => 'April',
-      'апрель'          => 'April',
-      'мая'             => 'May',
-      'май'             => 'May',
-      'июня'            => 'June',
-      'июнь'            => 'June',
-      'июля'            => 'July',
-      'июль'            => 'July',
-      'августа'         => 'August',
-      'август'          => 'August',
-      'сентября'        => 'September',
-      'сентябрь'        => 'September',
-      'октября'         => 'October',
-      'октябрь'         => 'October',
-      'октяябрь'        => 'October',
-      'ноября'          => 'November',
-      'ноябрь'          => 'November',
-      'декабря'         => 'December',
-      'декабрь'         => 'December',
+      'по настоящее время' => '',
+      'по н. вр.'          => '',
+      'Настоящее время'    => '',
+      'настоящее время'    => '',
+      'наст. время'        => '',
+      'в должности'        => '',
+      'н. в.'              => '',
+      'января'             => 'January',
+      'январь'             => 'January',
+      'февраля'            => 'February',
+      'февраль'            => 'February',
+      'марта'              => 'March',
+      'март'               => 'March',
+      'апреля'             => 'April',
+      'апрель'             => 'April',
+      'мая'                => 'May',
+      'май'                => 'May',
+      'июня'               => 'June',
+      'июнь'               => 'June',
+      'июля'               => 'July',
+      'июль'               => 'July',
+      'августа'            => 'August',
+      'август'             => 'August',
+      'сентября'           => 'September',
+      'сентябрь'           => 'September',
+      'октября'            => 'October',
+      'октябрь'            => 'October',
+      'октяябрь'           => 'October',
+      'ноября'             => 'November',
+      'ноябрь'             => 'November',
+      'декабря'            => 'December',
+      'декабрь'            => 'December',
     }.freeze
 
     def remap
