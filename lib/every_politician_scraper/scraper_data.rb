@@ -588,7 +588,7 @@ class OfficeholderListBase < Scraped::HTML
     }.freeze
 
     def empty?
-      (tds.first.text == tds.last.text) || itemLabel.to_s.tidy.empty?
+      (tds.first.text == tds.last.text) || itemLabel.to_s.tidy.empty? || too_early?
     end
 
     field :item do
@@ -668,6 +668,18 @@ class OfficeholderListBase < Scraped::HTML
       return ["#{rstart}, #{rend[-4..]}", rend] unless rstart[/\d{4}$/]
 
       [rstart, rend]
+    end
+
+    def ignore_before
+      1900
+    end
+
+    def too_early?
+      start_year < ignore_before
+    end
+
+    def start_year
+      startDate[0...4].to_i
     end
 
     def name_link_text
