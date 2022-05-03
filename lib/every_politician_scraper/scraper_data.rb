@@ -306,6 +306,33 @@ class WikipediaDate
     end
   end
 
+  # German dates
+  class German < WikipediaDate
+    REMAP = {
+      'amtierend' => 'Incumbent',
+      'Januar'    => 'January',
+      'Februar'   => 'February',
+      'März'      => 'March',
+      'April'     => 'April',
+      'Mai'       => 'May',
+      'Juni'      => 'June',
+      'Juli'      => 'July',
+      'August'    => 'August',
+      'September' => 'September',
+      'Oktober'   => 'October',
+      'November'  => 'November',
+      'Dezember'  => 'December',
+    }.freeze
+
+    def date_str
+      super.gsub(/(\d+)\./, '\1')
+    end
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # Indonesian dates
   class Indonesian < WikipediaDate
     REMAP = {
@@ -575,6 +602,7 @@ class OfficeholderListBase < Scraped::HTML
     LANG = {
       be: WikipediaDate::Belarussian,
       bg: WikipediaDate::Bulgarian,
+      de: WikipediaDate::German,
       es: WikipediaDate::Spanish,
       et: WikipediaDate::Estonian,
       fr: WikipediaDate::French,
