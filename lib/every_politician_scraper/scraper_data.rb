@@ -437,6 +437,32 @@ class WikipediaDate
     end
   end
 
+  # Romanian dates
+  class Romanian < WikipediaDate
+    REMAP = {
+      'ianuarie'   => 'January',
+      'februarie'  => 'February',
+      'martie'     => 'March',
+      'aprilie'    => 'April',
+      'mai'        => 'May',
+      'iunie'      => 'June',
+      'iulie'      => 'July',
+      'august'     => 'August',
+      'septembrie' => 'September',
+      'octombrie'  => 'October',
+      'noiembrie'  => 'November',
+      'decembrie'  => 'December',
+    }.freeze
+
+    def date_str
+      super.gsub(/^din /, '')
+    end
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # Russian dates
   class Russian < WikipediaDate
     REMAP = {
@@ -637,6 +663,7 @@ class OfficeholderListBase < Scraped::HTML
       lt: WikipediaDate::Lithuanian,
       nl: WikipediaDate::Dutch,
       pt: WikipediaDate::Portuguese,
+      ro: WikipediaDate::Romanian,
       ru: WikipediaDate::Russian,
       tr: WikipediaDate::Turkish,
       uk: WikipediaDate::Ukrainian,
