@@ -802,9 +802,5 @@ class OfficeholderNonTableBase < OfficeholderListBase::OfficeholderBase
   def name_node
     raise 'need to define a name_node'
   end
-
-  def too_early?
-    start_year < ignore_before
-  end
 end
 
