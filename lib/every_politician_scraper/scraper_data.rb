@@ -512,9 +512,8 @@ class WikipediaDate
   # Spanish dates
   class Spanish < WikipediaDate
     REMAP = {
-      'A la fecha'   => '',
-      'En funciones' => '',
-      'En el cargo'  => '',
+      'a la fecha'   => '',
+      'en funciones' => '',
       'en el cargo'  => '',
       'presente'     => '',
       'enero'        => 'January',
@@ -535,8 +534,8 @@ class WikipediaDate
       REMAP.merge(super)
     end
 
-    def date_en
-      super.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
+    def date_str
+      super.downcase.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
     end
   end
 
