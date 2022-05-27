@@ -623,7 +623,8 @@ class UnspanAllTables < Scraped::Response::Decorator
   end
 end
 
-# Base class for a list of Officeholders
+# Base class for a table of Officeholders
+# TODO: rename this to not be confused with the List version
 class OfficeholderListBase < Scraped::HTML
   field :members do
     raise 'No holder_entries found' if holder_entries.empty?
@@ -777,3 +778,27 @@ class OfficeholderListBase < Scraped::HTML
     end
   end
 end
+
+# Base class for a list of Officeholders
+class OfficeholderNonTableBase < OfficeholderListBase::OfficeholderBase
+  def empty?
+    too_early?
+  end
+
+  def combo_date?
+    true
+  end
+
+  def raw_combo_date
+    raise 'need to define a raw_combo_date'
+  end
+
+  def name_node
+    raise 'need to define a name_node'
+  end
+
+  def too_early?
+    start_year < ignore_before
+  end
+end
+
