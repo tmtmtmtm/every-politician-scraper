@@ -754,15 +754,21 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def ignore_before
-      1900
+      2000
     end
 
     def too_early?
-      start_year < ignore_before
+      end_year && (end_year < ignore_before)
     end
 
     def start_year
       startDate[0...4].to_i
+    end
+
+    def end_year
+      return if endDate.to_s.empty?
+
+      endDate[0...4].to_i
     end
 
     def name_link_text
