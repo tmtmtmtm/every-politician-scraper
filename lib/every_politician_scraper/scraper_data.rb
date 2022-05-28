@@ -513,6 +513,8 @@ class WikipediaDate
   class Spanish < WikipediaDate
     REMAP = {
       'a la fecha'   => '',
+      'actualidad'   => '',
+      'actual'       => '',
       'en funciones' => '',
       'en el cargo'  => '',
       'presente'     => '',
@@ -535,7 +537,7 @@ class WikipediaDate
     end
 
     def date_str
-      super.downcase.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
+      super.to_s.downcase.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
     end
   end
 
