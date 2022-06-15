@@ -440,6 +440,7 @@ class WikipediaDate
   # Romanian dates
   class Romanian < WikipediaDate
     REMAP = {
+      'prezent'    => '',
       'ianuarie'   => 'January',
       'februarie'  => 'February',
       'martie'     => 'March',
