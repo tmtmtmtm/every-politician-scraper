@@ -187,6 +187,41 @@ class WikipediaDate
     end
   end
 
+  # Arabic dates
+  class Arabic < WikipediaDate
+    REMAP = {
+      'حتى الأن'     => '',
+      'يناير'        => 'January',
+      'كانون الثاني' => 'January',
+      'شباط'         => 'February',
+      'فبراير'       => 'February',
+      'آذار'         => 'March',
+      'مارس'         => 'March',
+      'نيسان'        => 'April',
+      'أبريل'        => 'April',
+      'مايو'         => 'May',
+      'أيار'         => 'May',
+      'يونيو'        => 'June',
+      'حزيران'       => 'June',
+      'يوليو'        => 'July',
+      'تموز'         => 'July',
+      'أغسطس'        => 'August',
+      'آب'           => 'August',
+      'أيلول'        => 'September',
+      'سبتمبر'       => 'September',
+      'أكتوبر'       => 'October',
+      'تشرين الأول'  => 'October',
+      'نوفمبر'       => 'November',
+      'تشرين الثاني' => 'November',
+      'كانون الأول'  => 'December',
+      'ديسمبر'       => 'December',
+    }.freeze
+
+    def remap
+      super.merge(REMAP)
+    end
+  end
+
   # Belarussian dates
   class Belarussian < WikipediaDate
     REMAP = {
@@ -655,6 +690,7 @@ class OfficeholderListBase < Scraped::HTML
   # Base class for a single entry in the list of Officeholders
   class OfficeholderBase < Scraped::HTML
     LANG = {
+      ar: WikipediaDate::Arabic,
       be: WikipediaDate::Belarussian,
       bg: WikipediaDate::Bulgarian,
       de: WikipediaDate::German,
