@@ -73,60 +73,133 @@ module EveryPoliticianScraper
       Daff::TableDiff.new(alignment, flags)
     end
   end
+end
 
-  # A comparison where we don't care about things that want to be NULL
-  #  i.e. where Wikidata has additional information that the source doesn't
-  # We care if it exists, but is different, but not if it's missing
-  class NulllessComparison < Comparison
-    # bass class for working with Daff Table
-    class DiffThing
-      def initialize(data)
-        @data = data
-      end
-
-      attr_reader :data
+module DaffDiff
+  # Decorate the diff output from daff
+  class Decorator
+    def initialize(data:, table_class: Table, row_class: Row, cell_class: Cell)
+      @data = data
+      @table_class = table_class
+      @row_class = row_class
+      @cell_class = cell_class
     end
 
-    # the whole Daff Table
-    class DiffTable < DiffThing
-      def denulled
-        data.map { |row| DiffRow.new(row).denulled }.compact
+    def decorated
+      table_class.new(data, row_class, cell_class).data
+    end
+
+    private
+
+    attr_reader :data, :table_class, :row_class, :cell_class
+  end
+
+  # the whole Daff Table
+  class Table
+    def initialize(table, row_class, cell_class)
+      @table = table
+      @row_class = row_class
+      @cell_class = cell_class
+    end
+
+    def data
+      table.map { |row| row_class.new(row, header_row, cell_class).data }.compact
+    end
+
+    private
+
+    attr_reader :table, :row_class, :cell_class
+
+    def header_row
+      table.first
+    end
+  end
+
+  # a row of a Daff Table
+  class Row
+    def initialize(row, header_row, cell_class)
+      @row = row
+      @header_row = header_row
+      @cell_class = cell_class
+    end
+
+    def data
+      return row unless change_row?
+      return nil unless still_has_diffs?
+
+      decorated
+    end
+
+    private
+
+    attr_reader :row, :header_row, :cell_class
+
+    def decorated
+      @decorated ||= row.each_with_index.map { |cell, index| cell_class.new(cell, header_row[index]).transformed }
+    end
+
+    def change_row?
+      row.first == '->'
+    end
+
+    def still_has_diffs?
+      decorated.drop(1).any? { |cell| cell.to_s.include? '->' }
+    end
+  end
+
+  # a cell from a Daff Table
+  class Cell
+    def initialize(data, field)
+      @data = data
+      @field = field
+    end
+
+    def transformed
+      return data unless data.is_a?(String)
+      return data if     data == '->' # row type, not an actual diff
+      return data unless data.include? '->'
+
+      clean_data
+    end
+
+    def diff?
+      data.to_s.include? '->'
+    end
+
+    def clean_data
+      raise 'Subclass needs to provide #clean_data'
+    end
+
+    private
+
+    attr_reader :data, :field
+
+    def scraped
+      data.split('->', 2).last
+    end
+
+    def wikidata
+      data.split('->', 2).first
+    end
+  end
+
+  class Decorator
+    # Don't complain if Wikidata has higher precision date than the source
+    # e.g. 2008-05-13 vs 2008 or 2008-05
+    class DatePrecision < DaffDiff::Cell
+      def clean_data
+        return data unless field.to_s.include? 'date'
+        return wikidata if wikidata.include?(scraped)
+
+        data
       end
     end
 
-    # a row of a Daff Table
-    class DiffRow < DiffThing
-      def denulled
-        return data unless change_row?
-        return nil unless still_has_diffs?
-
-        remapped
+    # Don't complain if Wikidata has a value where the external source doesn't
+    class Nullless < DaffDiff::Cell
+      def clean_data
+        data.gsub('->NULL', '')
       end
-
-      private
-
-      def remapped
-        data.map { |cell| DiffCell.new(cell).denulled }
-      end
-
-      def change_row?
-        data.first == '->'
-      end
-
-      def still_has_diffs?
-        remapped.drop(1).any? { |cell| cell.to_s.include? '->' }
-      end
-    end
-
-    # a cell from a Daff Table
-    class DiffCell < DiffThing
-      def denulled
-        data.is_a?(String) ? data.gsub('->NULL', '') : data
-      end
-    end
-
-    def diff
-      DiffTable.new(super).denulled
     end
   end
 end

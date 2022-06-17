@@ -805,4 +805,3 @@ class OfficeholderNonTableBase < OfficeholderListBase::OfficeholderBase
     raise 'need to define a name_node'
   end
 end
-
