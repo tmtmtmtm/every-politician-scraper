@@ -73,6 +73,21 @@ module EveryPoliticianScraper
       Daff::TableDiff.new(alignment, flags)
     end
   end
+
+  # default set of decorators for comparisons.
+  # This is not the preferred method to do this, but a stopgap until
+  # everything can be migrated to a more explicit route.
+  class DecoratedComparison < Comparison
+    def diff
+      DaffDiff::Decorator.new(
+        cell_class: DaffDiff::Decorator::Nullless,
+        data:       DaffDiff::Decorator.new(
+          cell_class: DaffDiff::Decorator::DatePrecision,
+          data:       super
+        ).decorated
+      ).decorated
+    end
+  end
 end
 
 module DaffDiff
