@@ -80,10 +80,13 @@ module EveryPoliticianScraper
   class DecoratedComparison < Comparison
     def diff
       DaffDiff::Decorator.new(
-        cell_class: DaffDiff::Decorator::Nullless,
+        cell_class: DaffDiff::Decorator::WithinWeek,
         data:       DaffDiff::Decorator.new(
           cell_class: DaffDiff::Decorator::DatePrecision,
-          data:       super
+          data:       DaffDiff::Decorator.new(
+            cell_class: DaffDiff::Decorator::Nullless,
+            data:       super
+          ).decorated
         ).decorated
       ).decorated
     end
@@ -207,6 +210,22 @@ module DaffDiff
         return wikidata if wikidata.include?(scraped)
 
         data
+      end
+    end
+
+    # Don't complain if Wikidata date is within a week of source date
+    class WithinWeek < DaffDiff::Cell
+      def clean_data
+        return data unless field.to_s.include? 'date'
+
+        diff = days_between or return data
+        diff < 7 ? scraped : data
+      end
+
+      def days_between
+        return unless (wikidata.length == 10) && (scraped.length == 10)
+
+        (Date.parse(wikidata) - Date.parse(scraped)).to_i.abs
       end
     end
 
