@@ -346,6 +346,7 @@ class WikipediaDate
     REMAP = {
       'amtierend' => 'Incumbent',
       'Januar'    => 'January',
+      'Jänner'    => 'January',
       'Februar'   => 'February',
       'März'      => 'March',
       'April'     => 'April',
