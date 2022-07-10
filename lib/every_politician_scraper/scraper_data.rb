@@ -124,6 +124,11 @@ end
 # Interacting with a table of officeholders
 #   e.g. on a "List of Attorney Generals of Placeistan" page
 #-----------------------------------------------------------------------
+class String
+  def zeropad2
+    rjust(2, '0')
+  end
+end
 
 # Handle a variety of date formats seen on Wikipedia
 # Subclass this to remap foreign language dates
@@ -653,6 +658,17 @@ class WikipediaDate
       REMAP.merge(super)
     end
   end
+
+  # Vietnamese dates
+  class Vietnamese < WikipediaDate
+    def to_s
+      tidied.tr(' ', '-').split('-').reverse.map(&:zeropad2).join('-')
+    end
+
+    def tidied
+      date_str.to_s.gsub('đương nhiệm', '').gsub('nay', '').gsub('Từ', '').gsub(/tháng/i, '').gsub('năm', '').delete(',').tidy
+    end
+  end
 end
 
 # Decorator to change ZeroWidthSpaces to regualar ones
@@ -730,6 +746,7 @@ class OfficeholderListBase < Scraped::HTML
       ru: WikipediaDate::Russian,
       tr: WikipediaDate::Turkish,
       uk: WikipediaDate::Ukrainian,
+      vi: WikipediaDate::Vietnamese,
     }.freeze
 
     def empty?
