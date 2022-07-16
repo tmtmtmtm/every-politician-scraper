@@ -475,20 +475,22 @@ class WikipediaDate
   # Portuguese dates
   class Portuguese < WikipediaDate
     REMAP = {
-      'atualidade'      => '',
-      'em exercício'    => '',
-      'de janeiro de'   => 'January',
-      'de fevereiro de' => 'February',
-      'de março de'     => 'March',
-      'de abril de'     => 'April',
-      'de maio de'      => 'May',
-      'de junho de'     => 'June',
-      'de julho de'     => 'July',
-      'de agosto de'    => 'August',
-      'de setembro de'  => 'September',
-      'de outubro de'   => 'October',
-      'de novembro de'  => 'November',
-      'de dezembro de'  => 'December',
+      'até a atualidade' => '',
+      'atualidade'       => '',
+      'em exercício'     => '',
+      'presente'         => '',
+      'de janeiro de'    => 'January',
+      'de fevereiro de'  => 'February',
+      'de março de'      => 'March',
+      'de abril de'      => 'April',
+      'de maio de'       => 'May',
+      'de junho de'      => 'June',
+      'de julho de'      => 'July',
+      'de agosto de'     => 'August',
+      'de setembro de'   => 'September',
+      'de outubro de'    => 'October',
+      'de novembro de'   => 'November',
+      'de dezembro de'   => 'December',
     }.freeze
 
     def date_str
