@@ -479,6 +479,7 @@ class WikipediaDate
       'até a atualidade' => '',
       'atualidade'       => '',
       'em exercício'     => '',
+      'Em exercício'     => '',
       'presente'         => '',
       'de janeiro de'    => 'January',
       'de fevereiro de'  => 'February',
