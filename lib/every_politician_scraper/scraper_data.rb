@@ -322,6 +322,7 @@ class WikipediaDate
   class French < WikipediaDate
     REMAP = {
       "aujourd'hui" => '',
+      "auj."        => '',
       'en cours'    => '',
       'januar'      => 'January',
       'février'     => 'February',
