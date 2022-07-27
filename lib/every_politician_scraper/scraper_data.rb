@@ -401,6 +401,7 @@ class WikipediaDate
   # Italian dates
   class Italian < WikipediaDate
     REMAP = {
+      'in carica' => '',
       'gennaio'   => 'January',
       'febbraio'  => 'February',
       'marzo'     => 'March',
