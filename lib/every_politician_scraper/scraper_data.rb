@@ -277,6 +277,7 @@ class WikipediaDate
   # Dutch dates
   class Dutch < WikipediaDate
     REMAP = {
+      'heden'     => '',
       'januari'   => 'January',
       'februari'  => 'February',
       'maart'     => 'March',
