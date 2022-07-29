@@ -323,7 +323,7 @@ class WikipediaDate
   class French < WikipediaDate
     REMAP = {
       "aujourd'hui" => '',
-      "auj."        => '',
+      'auj.'        => '',
       'en cours'    => '',
       'januar'      => 'January',
       'février'     => 'February',
@@ -579,6 +579,32 @@ class WikipediaDate
     end
   end
 
+  # Slovak dates
+  class Slovak < WikipediaDate
+    REMAP = {
+      'január'    => 'January',
+      'február'   => 'February',
+      'marec'     => 'March',
+      'apríl'     => 'April',
+      'máj'       => 'May',
+      'jún'       => 'June',
+      'júl'       => 'July',
+      'august'    => 'August',
+      'september' => 'September',
+      'október'   => 'October',
+      'november'  => 'November',
+      'december'  => 'December',
+    }.freeze
+
+    def date_str
+      super.gsub(/(\d+)\./, '\1')
+    end
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # Spanish dates
   class Spanish < WikipediaDate
     REMAP = {
@@ -733,7 +759,7 @@ class OfficeholderListBase < Scraped::HTML
   end
 
   # Base class for a single entry in the list of Officeholders
-  class OfficeholderBase < Scraped::HTML
+  class OfficeholderBase < Scraped::HTML # rubocop:todo Metrics/ClassLength
     LANG = {
       ar: WikipediaDate::Arabic,
       be: WikipediaDate::Belarussian,
@@ -750,6 +776,7 @@ class OfficeholderListBase < Scraped::HTML
       pt: WikipediaDate::Portuguese,
       ro: WikipediaDate::Romanian,
       ru: WikipediaDate::Russian,
+      sk: WikipediaDate::Slovak,
       tr: WikipediaDate::Turkish,
       uk: WikipediaDate::Ukrainian,
       vi: WikipediaDate::Vietnamese,
