@@ -196,6 +196,8 @@ class WikipediaDate
   class Arabic < WikipediaDate
     REMAP = {
       'حتى الأن'     => '',
+      'حتى الآن'     => '',
+      'في المنصب'    => '',
       'يناير'        => 'January',
       'كانون الثاني' => 'January',
       'شباط'         => 'February',
