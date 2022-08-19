@@ -378,6 +378,28 @@ class WikipediaDate
     end
   end
 
+  # Greek dates
+  class Greek < WikipediaDate
+    REMAP = {
+      'Ιανουαρίου'  => 'January',
+      'Φεβρουαρίου' => 'February',
+      'Μαρτίου'     => 'March',
+      'Απριλίου'    => 'April',
+      'Μαΐου'       => 'May',
+      'Ιουνίου'     => 'June',
+      'Ιουλίου'     => 'July',
+      'Αυγούστου'   => 'August',
+      'Σεπτεμβρίου' => 'September',
+      'Οκτωβρίου'   => 'October',
+      'Νοεμβρίου'   => 'November',
+      'Δεκεμβρίου'  => 'December',
+    }.freeze
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # Indonesian dates
   class Indonesian < WikipediaDate
     REMAP = {
@@ -769,6 +791,7 @@ class OfficeholderListBase < Scraped::HTML
       be: WikipediaDate::Belarussian,
       bg: WikipediaDate::Bulgarian,
       de: WikipediaDate::German,
+      el: WikipediaDate::Greek,
       es: WikipediaDate::Spanish,
       et: WikipediaDate::Estonian,
       fr: WikipediaDate::French,
