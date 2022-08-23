@@ -811,7 +811,7 @@ class OfficeholderListBase < Scraped::HTML
     }.freeze
 
     def empty?
-      (tds.first.text == tds.last.text) || itemLabel.to_s.tidy.empty? || too_early?
+      non_data_row? || vacant? || too_early?
     end
 
     field :item do
@@ -895,6 +895,14 @@ class OfficeholderListBase < Scraped::HTML
 
     def ignore_before
       2000
+    end
+
+    def non_data_row?
+      (tds.first.text == tds.last.text)
+    end
+
+    def vacant?
+      itemLabel.to_s.tidy.empty?
     end
 
     def too_early?
