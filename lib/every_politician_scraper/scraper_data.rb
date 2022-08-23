@@ -327,6 +327,7 @@ class WikipediaDate
       "aujourd'hui" => '',
       'auj.'        => '',
       'en cours'    => '',
+      'en fonction' => '',
       'januar'      => 'January',
       'février'     => 'February',
       'mars'        => 'March',
