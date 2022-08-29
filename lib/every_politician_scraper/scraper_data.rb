@@ -401,6 +401,33 @@ class WikipediaDate
     end
   end
 
+  # Hungarian dates
+  class Hungarian < WikipediaDate
+    REMAP = {
+      'hivatalban' => '',
+      'január'     => 'January',
+      'február'    => 'February',
+      'március'    => 'March',
+      'április'    => 'April',
+      'május'      => 'May',
+      'június'     => 'June',
+      'július'     => 'July',
+      'augusztus'  => 'August',
+      'szeptember' => 'September',
+      'október'    => 'October',
+      'november'   => 'November',
+      'december'   => 'December',
+    }.freeze
+
+    def remap
+      REMAP.merge(super)
+    end
+
+    def date_en
+      super.split.reverse.join(' ').delete('.')
+    end
+  end
+
   # Indonesian dates
   class Indonesian < WikipediaDate
     REMAP = {
@@ -796,6 +823,7 @@ class OfficeholderListBase < Scraped::HTML
       es: WikipediaDate::Spanish,
       et: WikipediaDate::Estonian,
       fr: WikipediaDate::French,
+      hu: WikipediaDate::Hungarian,
       id: WikipediaDate::Indonesian,
       it: WikipediaDate::Italian,
       lb: WikipediaDate::Luxembourgish,
