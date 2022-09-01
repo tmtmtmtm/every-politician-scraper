@@ -667,6 +667,7 @@ class WikipediaDate
       'actual'                  => '',
       'en funciones'            => '',
       'en el cargo'             => '',
+      'en ejercicio'            => '',
       'presente'                => '',
       'enero'                   => 'January',
       'febrero'                 => 'February',
