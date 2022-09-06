@@ -302,6 +302,7 @@ class WikipediaDate
   # Estonian dates
   class Estonian < WikipediaDate
     REMAP = {
+      'jaanuar'   => 'January',
       'januaar'   => 'January',
       'veebruar'  => 'February',
       'marts'     => 'March',
