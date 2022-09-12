@@ -337,6 +337,7 @@ class WikipediaDate
       'juin'        => 'June',
       'juillet'     => 'July',
       'août'        => 'August',
+      'aout'        => 'August',
       'septembre'   => 'September',
       'octobre'     => 'October',
       'novembre'    => 'November',
