@@ -69,6 +69,30 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'unterminated' do
+    let(:datestr) { '2007-' }
+
+    it 'has the correct start' do
+      assert_equal '2007', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_nil combo.last
+    end
+  end
+
+  describe 'incumbent' do
+    let(:datestr) { '2007 - Incumbent' }
+
+    it 'has the correct start' do
+      assert_equal '2007', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_nil combo.last
+    end
+  end
+
   describe 'two months in a year' do
     let(:datestr) { 'April-June 2004' }
 

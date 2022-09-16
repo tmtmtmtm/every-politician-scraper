@@ -29,8 +29,12 @@ class WikipediaComboDate
 
   attr_reader :rawstring, :dateclass
 
+  def date_string
+    rawstring.tidy.sub(/[—–-]/, '-').gsub(/-$/, '-Incumbent')
+  end
+
   def parts
-    rawstring.split(/[—–-]/).map(&:tidy)
+    date_string.split('-').map(&:tidy)
   end
 
   def raw_ended
