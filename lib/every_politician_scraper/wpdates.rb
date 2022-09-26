@@ -43,11 +43,11 @@ class WikipediaComboDate
 
   def raw_began
     start_parts = parts[0].to_s.split
-    ended_parts.zip(start_parts).map(&:compact).map(&:last).join(' ')
+    ended_parts[0..2].zip(start_parts).map(&:compact).map(&:last).join(' ')
   end
 
   def ended_parts
-    (raw_ended || '').split
+    ((raw_ended || '').split + [nil, nil, nil]).take(3)
   end
 end
 

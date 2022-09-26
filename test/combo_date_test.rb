@@ -93,6 +93,30 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'month precision incumbent' do
+    let(:datestr) { 'April 2022–Current' }
+
+    it 'has the correct start' do
+      assert_equal '2022-04', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_nil combo.last
+    end
+  end
+
+  describe 'full date incumbent' do
+    let(:datestr) { '6 April 2022 – present' }
+
+    it 'has the correct start' do
+      assert_equal '2022-04-06', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_nil combo.last
+    end
+  end
+
   describe 'two months in a year' do
     let(:datestr) { 'April-June 2004' }
 
