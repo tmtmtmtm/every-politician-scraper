@@ -60,6 +60,7 @@ class WikipediaDate
 
   def to_s
     return if date_en.to_s.tidy.empty?
+    return date_en if format_iso?
     return date_obj.to_s if format_ymd?
     return date_obj_ym if format_ym?
     return date_en if format_y?
@@ -104,6 +105,10 @@ class WikipediaDate
 
   def format_y?
     date_en =~ /^\d{4}$/
+  end
+
+  def format_iso?
+    date_en =~ /^\d{4}-\d{2}-\d{2}$/
   end
 
   # Dates in the form 24.12.2007

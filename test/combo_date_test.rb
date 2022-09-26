@@ -154,3 +154,13 @@ describe WikipediaComboDate do
     end
   end
 end
+
+describe WikipediaDate do
+  describe 'already ISO-formmated' do
+    let(:datestr) { '2004-06-03' }
+
+    it 'has the correct start' do
+      assert_equal '2004-06-03', WikipediaDate.new(datestr).to_s
+    end
+  end
+end
