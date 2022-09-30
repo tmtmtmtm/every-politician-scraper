@@ -108,7 +108,7 @@ class WikipediaDate
   end
 
   def format_iso?
-    date_en =~ /^\d{4}-\d{2}-\d{2}$/
+    date_en =~ /^\d{4}(-\d{2}){1,2}$/
   end
 
   # Dates in the form 24.12.2007

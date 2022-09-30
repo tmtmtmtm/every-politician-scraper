@@ -159,8 +159,16 @@ describe WikipediaDate do
   describe 'already ISO-formmated' do
     let(:datestr) { '2004-06-03' }
 
-    it 'has the correct start' do
+    it 'has the correct representation' do
       assert_equal '2004-06-03', WikipediaDate.new(datestr).to_s
+    end
+  end
+
+  describe 'partial ISO-formmated date' do
+    let(:datestr) { '2004-06' }
+
+    it 'has the correct representation' do
+      assert_equal '2004-06', WikipediaDate.new(datestr).to_s
     end
   end
 end
