@@ -153,6 +153,21 @@ describe WikipediaComboDate do
       assert_equal '2004-03-23', combo.last
     end
   end
+
+  describe 'Portuguese dates' do
+    let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Portuguese) }
+    # TODO: handle this raw
+    # let(:datestr) { '15 de março de 1983 até 14 de maio de 1986' }
+    let(:datestr) { '15 março 1983 - 14 maio 1986' }
+
+    it 'has the correct start' do
+      assert_equal '1983-03-15', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_equal '1986-05-14', combo.last
+    end
+  end
 end
 
 describe WikipediaDate do

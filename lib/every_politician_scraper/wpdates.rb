@@ -463,22 +463,22 @@ class WikipediaDate
       'em exercício'     => '',
       'Em exercício'     => '',
       'presente'         => '',
-      'de janeiro de'    => 'January',
-      'de fevereiro de'  => 'February',
-      'de março de'      => 'March',
-      'de abril de'      => 'April',
-      'de maio de'       => 'May',
-      'de junho de'      => 'June',
-      'de julho de'      => 'July',
-      'de agosto de'     => 'August',
-      'de setembro de'   => 'September',
-      'de outubro de'    => 'October',
-      'de novembro de'   => 'November',
-      'de dezembro de'   => 'December',
+      'janeiro'          => 'January',
+      'fevereiro'        => 'February',
+      'março'            => 'March',
+      'abril'            => 'April',
+      'maio'             => 'May',
+      'junho'            => 'June',
+      'julho'            => 'July',
+      'agosto'           => 'August',
+      'setembro'         => 'September',
+      'outubro'          => 'October',
+      'novembro'         => 'November',
+      'dezembro'         => 'December',
     }.freeze
 
     def date_str
-      super.gsub(/[º°]/, '')
+      super.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
     end
 
     def remap
