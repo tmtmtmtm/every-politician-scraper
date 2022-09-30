@@ -42,8 +42,20 @@ class WikipediaComboDate
   end
 
   def raw_began
-    start_parts = parts[0].to_s.split
-    ended_parts[0..2].zip(start_parts).map(&:compact).map(&:last).join(' ')
+    ended_parts.zip(padded_start_parts).map(&:compact).map(&:last).join(' ')
+  end
+
+  def padded_start_parts
+    return start_parts if start_parts.count == 3
+    # if we have a year, left pad (for "Dec 2001 - 13 Jan 2002")
+    return (['', '', ''] + start_parts).last(3) if start_parts.last.to_s[/\d{4}/]
+
+    # not a year, so pass through to fill things like "3 - 10 Dec 2001"
+    start_parts
+  end
+
+  def start_parts
+    parts[0].to_s.split
   end
 
   def ended_parts

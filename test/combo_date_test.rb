@@ -45,6 +45,18 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'one partial, one full' do
+    let(:datestr) { 'January 2004 - 12 February 2005' }
+
+    it 'has the correct start' do
+      assert_equal '2004-01', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_equal '2005-02-12', combo.last
+    end
+  end
+
   describe 'two years' do
     let(:datestr) { '2004- 2005' }
 
