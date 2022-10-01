@@ -141,7 +141,7 @@ end
 class RemoveReferences < Scraped::Response::Decorator
   def body
     Nokogiri::HTML(super).tap do |doc|
-      doc.css('sup.reference').remove
+      doc.css('sup').remove
     end.to_s
   end
 end
