@@ -30,7 +30,7 @@ class WikipediaComboDate
   attr_reader :rawstring, :dateclass
 
   def date_string
-    rawstring.tidy.sub(/[—–-]/, '-').gsub(/-$/, '-Incumbent')
+    tidied.tidy.sub(/[—–-]/, '-').gsub(/-$/, '-Incumbent')
   end
 
   def parts
@@ -60,6 +60,10 @@ class WikipediaComboDate
 
   def ended_parts
     ((raw_ended || '').split + [nil, nil, nil]).take(3)
+  end
+
+  def tidied
+    dateclass.new(rawstring).tidied
   end
 end
 
@@ -91,6 +95,12 @@ class WikipediaDate
     }
   end
 
+  # reduce to d M Y or equivalent, without flourishes: 1º, de mai, etc
+  # NB: this needs to work both for individual dates, but also combo ranges
+  def tidied
+    date_str
+  end
+
   private
 
   attr_reader :date_str
@@ -104,7 +114,7 @@ class WikipediaDate
   end
 
   def date_en
-    @date_en ||= remap.reduce(date_str) { |str, (local, eng)| str.to_s.sub(local, eng) }
+    @date_en ||= remap.reduce(tidied) { |str, (local, eng)| str.to_s.sub(local, eng) }
   end
 
   def format_ymd?
@@ -286,7 +296,7 @@ class WikipediaDate
       REMAP.merge(super)
     end
 
-    def date_str
+    def tidied
       super.gsub('1er', '1')
     end
   end
@@ -310,7 +320,7 @@ class WikipediaDate
       'Dezember'  => 'December',
     }.freeze
 
-    def date_str
+    def tidied
       super.gsub(/(\d+)\./, '\1')
     end
 
@@ -432,7 +442,7 @@ class WikipediaDate
       'gruodžio'  => 'December',
     }.freeze
 
-    def date_en
+    def tidied
       super.gsub(' m.', ' ').gsub(' d.', ' ').tidy.split.reverse.join(' ')
     end
 
@@ -458,7 +468,7 @@ class WikipediaDate
       'Dezember'  => 'December',
     }.freeze
 
-    def date_str
+    def tidied
       super.gsub(/(\d+)\./, '\1')
     end
 
@@ -489,7 +499,7 @@ class WikipediaDate
       'dezembro'         => 'December',
     }.freeze
 
-    def date_str
+    def tidied
       super.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
     end
 
@@ -516,7 +526,7 @@ class WikipediaDate
       'decembrie'  => 'December',
     }.freeze
 
-    def date_str
+    def tidied
       super.gsub(/^din /, '')
     end
 
@@ -566,7 +576,7 @@ class WikipediaDate
       REMAP.merge(super)
     end
 
-    def date_str
+    def tidied
       super.gsub(' года', '')
     end
   end
@@ -588,7 +598,7 @@ class WikipediaDate
       'december'  => 'December',
     }.freeze
 
-    def date_str
+    def tidied
       super.gsub(/(\d+)\./, '\1')
     end
 
@@ -627,7 +637,7 @@ class WikipediaDate
       REMAP.merge(super)
     end
 
-    def date_str
+    def tidied
       super.to_s.downcase.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
     end
   end

@@ -170,7 +170,7 @@ describe WikipediaComboDate do
     let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Portuguese) }
     # TODO: handle this raw
     # let(:datestr) { '15 de março de 1983 até 14 de maio de 1986' }
-    let(:datestr) { '15 março 1983 - 14 maio 1986' }
+    let(:datestr) { '15 de março de 1983 - 14 de maio de 1986' }
 
     it 'has the correct start' do
       assert_equal '1983-03-15', combo.first
