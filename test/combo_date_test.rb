@@ -153,6 +153,18 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'longdash' do
+    let(:datestr) { '1950－1952' }
+
+    it 'has the correct start' do
+      assert_equal '1950', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_equal '1952', combo.last
+    end
+  end
+
   describe 'German dates' do
     let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::German) }
     let(:datestr) { '18.–23. März 2004' }
