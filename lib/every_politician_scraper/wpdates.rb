@@ -118,7 +118,7 @@ class WikipediaDate
   end
 
   def format_ymd?
-    (date_en =~ /^\d{1,2} \w+,? \d{4}$/) || (date_en =~ /^\w+ \d{1,2}, \d{4}$/)
+    (date_en =~ /^\d{1,2} \w+,? \d{4}$/) || (date_en =~ /^\w+ \d{1,2},? \d{4}$/)
   end
 
   def format_ym?

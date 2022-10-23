@@ -45,7 +45,7 @@ describe WikipediaComboDate do
     end
   end
 
-  describe 'one partial, one full' do
+  describe 'one partial, one DMY' do
     let(:datestr) { 'January 2004 - 12 February 2005' }
 
     it 'has the correct start' do
@@ -54,6 +54,18 @@ describe WikipediaComboDate do
 
     it 'has the correct end' do
       assert_equal '2005-02-12', combo.last
+    end
+  end
+
+  describe 'MD - MDY' do
+    let(:datestr) { 'August 28 – October 10, 2018' }
+
+    it 'has the correct start' do
+      assert_equal '2018-08-28', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_equal '2018-10-10', combo.last
     end
   end
 
