@@ -190,6 +190,19 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'Vietnamese dates' do
+    let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Vietnamese) }
+    let(:datestr) { 'Tháng 8, 2011 – 9 tháng 4 năm 2016' }
+
+    it 'has the correct start' do
+      assert_equal '2011-08', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_equal '2016-04-09', combo.last
+    end
+  end
+
   describe 'Portuguese dates' do
     let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Portuguese) }
     # TODO: handle this raw

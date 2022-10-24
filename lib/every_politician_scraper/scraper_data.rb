@@ -124,11 +124,6 @@ end
 # Interacting with a table of officeholders
 #   e.g. on a "List of Attorney Generals of Placeistan" page
 #-----------------------------------------------------------------------
-class String
-  def zeropad2
-    rjust(2, '0')
-  end
-end
 
 # Decorator to change ZeroWidthSpaces to regualar ones
 class ReplaceZeroWidthSpaces < Scraped::Response::Decorator
@@ -230,10 +225,14 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     field :startDate do
+      return combo_date.first if combo_date?
+
       date_class.new(raw_start).to_s
     end
 
     field :endDate do
+       return combo_date.last if combo_date?
+
       date_class.new(raw_end).to_s
     end
 

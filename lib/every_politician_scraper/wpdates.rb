@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+class String
+  def zeropad2
+    rjust(2, '0')
+  end
+end
+
 # Two dates in one string, e.g:
 #   1990 - 1994
 #   Jan-Dec 2004
@@ -30,7 +36,7 @@ class WikipediaComboDate
   attr_reader :rawstring, :dateclass
 
   def date_string
-    tidied.tidy.sub(/[—–-－]/, '-').gsub(/-$/, '-Incumbent')
+    tidied.tidy.sub(/[—–\-－]/, '-').gsub(/-$/, '-Incumbent')
   end
 
   def parts
