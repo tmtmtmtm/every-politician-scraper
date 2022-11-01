@@ -192,14 +192,29 @@ describe WikipediaComboDate do
 
   describe 'Vietnamese dates' do
     let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Vietnamese) }
-    let(:datestr) { 'Tháng 8, 2011 – 9 tháng 4 năm 2016' }
 
-    it 'has the correct start' do
-      assert_equal '2011-08', combo.first
+    describe 'basic Vietnamese range' do
+      let(:datestr) { 'Tháng 8, 2011 – 9 tháng 4 năm 2016' }
+
+      it 'has the correct start' do
+        assert_equal '2011-08', combo.first
+      end
+
+      it 'has the correct end' do
+        assert_equal '2016-04-09', combo.last
+      end
     end
 
-    it 'has the correct end' do
-      assert_equal '2016-04-09', combo.last
+    describe 'Vietnamese incumbent' do
+      let(:datestr) { '21 tháng 10 năm 2022 - nay' }
+
+      it 'has the correct start' do
+        assert_equal '2022-10-21', combo.first
+      end
+
+      it 'has the correct end' do
+        assert_nil combo.last
+      end
     end
   end
 

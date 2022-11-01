@@ -27,6 +27,7 @@ class WikipediaComboDate
 
   def last
     raw = raw_ended or return
+    return if raw == 'Incumbent'
 
     dateclass.new(raw).to_s
   end
