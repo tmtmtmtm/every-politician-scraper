@@ -205,11 +205,23 @@ describe WikipediaComboDate do
       end
     end
 
-    describe 'Vietnamese incumbent' do
+    describe 'Vietnamese incumbent (nay)' do
       let(:datestr) { '21 tháng 10 năm 2022 - nay' }
 
       it 'has the correct start' do
         assert_equal '2022-10-21', combo.first
+      end
+
+      it 'has the correct end' do
+        assert_nil combo.last
+      end
+    end
+
+    describe 'Vietnamese incumbent (Từ)' do
+      let(:datestr) { 'Từ 12 tháng 11 năm 2020' }
+
+      it 'has the correct start' do
+        assert_equal '2020-11-12', combo.first
       end
 
       it 'has the correct end' do

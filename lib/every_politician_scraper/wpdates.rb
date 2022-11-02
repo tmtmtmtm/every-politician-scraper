@@ -710,7 +710,7 @@ class WikipediaDate
     end
 
     def tidied
-      date_str.to_s.gsub('đương nhiệm', '').gsub('nay', '').gsub('Từ', '').gsub(/tháng/i, '').gsub('năm', '').delete(',').tidy
+      date_str.to_s.gsub('đương nhiệm', '').gsub('nay', '').gsub(/Từ (.*)/, '\1 - ').gsub(/tháng/i, '').gsub('năm', '').delete(',').tidy
     end
   end
 end
