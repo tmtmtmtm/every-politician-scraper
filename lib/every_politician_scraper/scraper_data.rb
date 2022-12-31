@@ -352,3 +352,24 @@ class OfficeholderNonTableBase < OfficeholderListBase::OfficeholderBase
     raise 'need to define a name_node'
   end
 end
+
+# Base class for Cabinet Member in a Wikipedia table
+class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
+  field :position do
+    position_cell.attr('wikidata')
+  end
+
+  field :positionLabel do
+    position_cell.text.tidy
+  end
+
+  private
+
+  def position_node
+    position_cell.at_css('a') || position_cell
+  end
+
+  def position_cell
+    tds[columns.index('position')]
+  end
+end
