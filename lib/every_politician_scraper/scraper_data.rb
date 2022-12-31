@@ -363,9 +363,25 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
     position_node.text.tidy
   end
 
+  field :party do
+    party_node.attr('wikidata')
+  end
+
+  field :partyLabel do
+    party_node.text.tidy
+  end
+
+  def startDate
+    (cell_for('start') || cell_for('dates')) ? super : nil
+  end
+
+  def endDate
+    (cell_for('end') || cell_for('dates')) ? super : nil
+  end
+
   #TODO: push this further up the hierarchy
   def cell_for(title)
-    tds[columns.index(title)]
+    tds.at(columns.index(title))
   end
 
   private
@@ -376,5 +392,13 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
 
   def position_cell
     cell_for('position')
+  end
+
+  def party_node
+    party_cell.at_css('a') || party_cell
+  end
+
+  def party_cell
+    cell_for('party')
   end
 end
