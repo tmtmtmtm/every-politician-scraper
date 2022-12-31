@@ -356,11 +356,11 @@ end
 # Base class for Cabinet Member in a Wikipedia table
 class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
   field :position do
-    position_cell.attr('wikidata')
+    position_node.attr('wikidata')
   end
 
   field :positionLabel do
-    position_cell.text.tidy
+    position_node.text.tidy
   end
 
   #TODO: push this further up the hierarchy
