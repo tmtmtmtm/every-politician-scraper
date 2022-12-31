@@ -363,6 +363,11 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
     position_cell.text.tidy
   end
 
+  #TODO: push this further up the hierarchy
+  def cell_for(title)
+    tds[columns.index(title)]
+  end
+
   private
 
   def position_node
@@ -370,6 +375,6 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
   end
 
   def position_cell
-    tds[columns.index('position')]
+    cell_for('position')
   end
 end
