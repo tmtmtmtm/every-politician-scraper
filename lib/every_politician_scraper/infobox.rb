@@ -219,7 +219,7 @@ module EveryPolitician
     end
 
     def infoboxes_with_positions
-      delineator = %i[office order title parliament constituency_mp ambassador_from]
+      delineator = %i[office order title parliament constituency_mp state_house ambassador_from]
       infoboxes.select { |box| (box.transform_keys(&:unnumbered).keys & delineator).any? }
     end
 
