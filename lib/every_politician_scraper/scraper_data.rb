@@ -161,7 +161,11 @@ class OfficeholderListBase < Scraped::HTML
   field :members do
     raise 'No holder_entries found' if holder_entries.empty?
 
-    holder_entries.map { |ul| fragment(ul => member_class) }.reject(&:empty?).map(&:to_h).uniq
+    member_items.reject(&:empty?).map(&:to_h).uniq
+  end
+
+  def member_items
+    holder_entries.map { |ul| fragment(ul => member_class) }
   end
 
   private
@@ -231,7 +235,7 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     field :endDate do
-       return combo_date.last if combo_date?
+      return combo_date.last if combo_date?
 
       date_class.new(raw_end).to_s
     end
@@ -353,6 +357,25 @@ class OfficeholderNonTableBase < OfficeholderListBase::OfficeholderBase
   end
 end
 
+# Base class for Wikipedia table of Cabinet members
+class WikiCabinetTable < OfficeholderListBase
+  # TODO: harmonise
+  field :members do
+    member_items.flat_map do |member|
+      data = member.to_h
+      [data.delete(:positionLabel)].flatten.map { |posn| data.merge(positionLabel: posn) }
+    end.uniq
+  end
+
+  def member_items
+    super.reject(&:skip?)
+  end
+
+  def skip?
+    false
+  end
+end
+
 # Base class for Cabinet Member in a Wikipedia table
 class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
   field :position do
@@ -379,7 +402,7 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
     (cell_for('end') || cell_for('dates')) ? super : nil
   end
 
-  #TODO: push this further up the hierarchy
+  # TODO: push this further up the hierarchy
   def cell_for(title)
     tds.at(columns.index(title))
   end
