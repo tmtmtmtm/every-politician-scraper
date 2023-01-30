@@ -370,10 +370,6 @@ class WikiCabinetTable < OfficeholderListBase
   def member_items
     super.reject(&:skip?)
   end
-
-  def skip?
-    false
-  end
 end
 
 # Base class for Cabinet Member in a Wikipedia table
@@ -400,6 +396,10 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
 
   def endDate
     (cell_for('end') || cell_for('dates')) ? super : nil
+  end
+
+  def skip?
+    false
   end
 
   # TODO: push this further up the hierarchy
