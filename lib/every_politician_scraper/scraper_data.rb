@@ -383,11 +383,11 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
   end
 
   field :party do
-    party_node.attr('wikidata')
+    party_node.attr('wikidata') if party_cell
   end
 
   field :partyLabel do
-    party_node.text.tidy
+    party_node.text.tidy if party_cell
   end
 
   def startDate
