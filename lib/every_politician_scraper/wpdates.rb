@@ -212,6 +212,7 @@ class WikipediaDate
   class Bulgarian < WikipediaDate
     REMAP = {
       '…'         => '',
+      'настояще'  => 'Incumbent',
       'януари'    => 'January',
       'февруари'  => 'February',
       'март'      => 'March',
