@@ -508,7 +508,7 @@ class WikipediaDate
     }.freeze
 
     def tidied
-      super.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
+      super.gsub(/\.?[º°]/, '').gsub(' de ', ' ').tidy
     end
 
     def remap
