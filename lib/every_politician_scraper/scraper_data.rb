@@ -375,19 +375,19 @@ end
 # Base class for Cabinet Member in a Wikipedia table
 class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
   field :position do
-    position_node.attr('wikidata')
+    position_node.attr('wikidata') if position_node
   end
 
   field :positionLabel do
-    position_node.text.tidy
+    position_node.text.tidy if position_node
   end
 
   field :party do
-    party_node.attr('wikidata') if party_cell
+    party_node.attr('wikidata') if party_node
   end
 
   field :partyLabel do
-    party_node.text.tidy if party_cell
+    party_node.text.tidy if party_node
   end
 
   def startDate
@@ -410,7 +410,7 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
   private
 
   def position_node
-    position_cell.at_css('a') || position_cell
+    position_cell&.at_css('a') || position_cell
   end
 
   def position_cell
@@ -418,10 +418,32 @@ class WikiCabinetMember < OfficeholderListBase::OfficeholderBase
   end
 
   def party_node
-    party_cell.at_css('a') || party_cell
+    party_cell&.at_css('a') || party_cell
   end
 
   def party_cell
     cell_for('party')
+  end
+end
+
+# Members of a legislature table on Wikipedia
+#   mostly the same as Cabinet, but with a built-in area
+class WikiLegislatureMember < WikiCabinetMember
+  field :area do
+    area_node.attr('wikidata') if area_node
+  end
+
+  field :areaLabel do
+    area_node.text.tidy if area_node
+  end
+
+  private
+
+  def area_node
+    area_cell&.at_css('a') || area_cell
+  end
+
+  def area_cell
+    cell_for('area')
   end
 end
