@@ -192,6 +192,7 @@ class OfficeholderListBase < Scraped::HTML
       ar: WikipediaDate::Arabic,
       be: WikipediaDate::Belarussian,
       bg: WikipediaDate::Bulgarian,
+      ca: WikipediaDate::Catalan,
       de: WikipediaDate::German,
       el: WikipediaDate::Greek,
       es: WikipediaDate::Spanish,

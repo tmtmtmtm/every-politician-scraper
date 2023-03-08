@@ -232,6 +232,33 @@ class WikipediaDate
     end
   end
 
+  # Catalan dates
+  class Catalan < WikipediaDate
+    REMAP = {
+      'gener'    => 'January',
+      'jener'    => 'January',
+      'febrer'   => 'February',
+      'març'     => 'March',
+      'abril'    => 'April',
+      'maig'     => 'May',
+      'juny'     => 'June',
+      'juliol'   => 'July',
+      'agost'    => 'August',
+      'setembre' => 'September',
+      'octubre'  => 'October',
+      'novembre' => 'November',
+      'desembre' => 'December',
+    }.freeze
+
+    def tidied
+      super.gsub(' de ', ' ').gsub(" d'", ' ')
+    end
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # Dutch dates
   class Dutch < WikipediaDate
     REMAP = {
