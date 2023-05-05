@@ -153,4 +153,13 @@ describe InfoboxEN::JSON do
       assert_equal 'Member of the Maryland House of Delegates', mandates[0][:positionLabel]
     end
   end
+
+  describe 'Charles Gubser' do
+    let(:datafile) { 'CG.json' }
+
+    it 'finds reps with state/district combo' do
+      assert_equal 'Member of the U.S. House of Representatives from California', mandates[1][:positionLabel]
+    end
+  end
+
 end

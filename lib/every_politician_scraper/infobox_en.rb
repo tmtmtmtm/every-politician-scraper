@@ -16,7 +16,7 @@ module InfoboxEN
     POSITION = %w[office order title succession jr/sr parliament
                   state_house state_senate state_assembly assembly
                   state_delegate constituency_mp constituency_am
-                  amabassador_from].freeze
+                  state district amabassador_from].freeze
     BEGAN = %w[term_start termstart].freeze
     ENDED = %w[term_end termend].freeze
     TERM = %w[term reign].freeze
@@ -67,7 +67,8 @@ module InfoboxEN
       return "#{json.dig('state_legislature', 'text')} State Legislator" if json.key?('state_legislature')
       return "#{json.dig('state_senate', 'text')} State Senator" if json.key?('state_senate')
       return "#{json.dig('state_assembly', 'text')} State Assembly Member" if json.key?('state_assembly')
-      return "US Representative from #{json.dig('state', 'text')}" if json.key?('state') && json.key?('constituency')
+      return "Member of the U.S. House of Representatives from #{json.dig('state', 'text')}" if json.key?('state') && json.key?('constituency')
+      return "Member of the U.S. House of Representatives from #{json.dig('state', 'text')}" if json.key?('state') && json.key?('district')
 
       position['text'].to_s.tidy
     end

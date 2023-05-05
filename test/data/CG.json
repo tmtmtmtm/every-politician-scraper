@@ -1,0 +1,485 @@
+{
+  "title": "Charles Gubser",
+  "pageID": 11542542,
+  "categories": [
+    "1916 births",
+    "2011 deaths",
+    "Farmers from California",
+    "Republican Party members of the California State Assembly",
+    "People from Gilroy, California",
+    "People from Fresno, California",
+    "San Jose State University alumni",
+    "University of California, Berkeley alumni",
+    "Republican Party members of the United States House of Representatives from California",
+    "Schoolteachers from California",
+    "20th-century American politicians",
+    "Gilroy High School alumni"
+  ],
+  "sections": [
+    {
+      "title": "",
+      "depth": 0,
+      "paragraphs": [
+        {
+          "sentences": [
+            {
+              "text": "Charles Samuel Gubser (February 1, 1916 – August 20, 2011) was an American politician who served as a member of the United States House of Representatives from California from 1953 to 1974.",
+              "links": [
+                {
+                  "type": "internal",
+                  "page": "United States House of Representatives"
+                }
+              ],
+              "formatting": {
+                "bold": [
+                  "Charles Samuel Gubser"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "description": "American politician",
+          "template": "short description"
+        },
+        {
+          "template": "date",
+          "data": {
+            "year": "1916",
+            "month": "2",
+            "date": "1",
+            "template": "birth date",
+            "text": "February 1, 1916"
+          }
+        },
+        {
+          "year": "2011",
+          "month": "8",
+          "day": "20",
+          "list": [
+            "1916",
+            "2",
+            "1"
+          ],
+          "template": "death date and age"
+        }
+      ],
+      "infoboxes": [
+        {
+          "name": {
+            "text": "Charles Gubser"
+          },
+          "image": {
+            "text": "Charles Gubser.jpg"
+          },
+          "state": {
+            "text": "California",
+            "links": [
+              {
+                "type": "internal",
+                "page": "California"
+              }
+            ]
+          },
+          "district": {
+            "text": "10th",
+            "links": [
+              {
+                "text": "10th",
+                "type": "internal",
+                "page": "California's 10th congressional district"
+              }
+            ]
+          },
+          "term_start": {
+            "text": "January 3, 1953"
+          },
+          "term_end": {
+            "text": "December 31, 1974"
+          },
+          "predecessor": {
+            "text": "Thomas H. Werdel",
+            "links": [
+              {
+                "type": "internal",
+                "page": "Thomas H. Werdel"
+              }
+            ]
+          },
+          "successor": {
+            "text": "Don Edwards",
+            "links": [
+              {
+                "type": "internal",
+                "page": "Don Edwards"
+              }
+            ]
+          },
+          "state_assembly2": {
+            "text": "California"
+          },
+          "district2": {
+            "text": "29th",
+            "links": [
+              {
+                "text": "29th",
+                "type": "internal",
+                "page": "California's 29th State Assembly district"
+              }
+            ]
+          },
+          "term2": {
+            "text": "January 8, 1951 - January 3, 1953"
+          },
+          "predecessor2": {
+            "text": "John F. Thompson"
+          },
+          "successor2": {
+            "text": "Bruce F. Allen",
+            "links": [
+              {
+                "type": "internal",
+                "page": "Bruce F. Allen"
+              }
+            ]
+          },
+          "birth_name": {
+            "text": "Charles Samuel Gubser"
+          },
+          "birth_date": {
+            "text": "February 1, 1916"
+          },
+          "birth_place": {
+            "text": "Gilroy, California, U.S.",
+            "links": [
+              {
+                "text": "Gilroy",
+                "type": "internal",
+                "page": "Gilroy, California"
+              },
+              {
+                "type": "internal",
+                "page": "California"
+              }
+            ]
+          },
+          "death_date": {
+            "text": "August 20, 2011"
+          },
+          "death_place": {
+            "text": "Fresno, California, U.S.",
+            "links": [
+              {
+                "type": "internal",
+                "page": "Fresno, California"
+              }
+            ]
+          },
+          "party": {
+            "text": "Republican",
+            "links": [
+              {
+                "text": "Republican",
+                "type": "internal",
+                "page": "Republican Party (United States)"
+              }
+            ]
+          },
+          "education": {
+            "text": "University of California, Berkeley (BA)",
+            "links": [
+              {
+                "type": "internal",
+                "page": "University of California, Berkeley"
+              },
+              {
+                "text": "BA",
+                "type": "internal",
+                "page": "Bachelor of Arts"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Early life and education",
+      "depth": 0,
+      "paragraphs": [
+        {
+          "sentences": [
+            {
+              "text": "Born in Gilroy, California, Gubser attended the public schools and graduated from Gilroy Union High School in 1932.",
+              "links": [
+                {
+                  "type": "internal",
+                  "page": "Gilroy, California"
+                },
+                {
+                  "text": "Gilroy Union High School",
+                  "type": "internal",
+                  "page": "Gilroy High School"
+                }
+              ]
+            },
+            {
+              "text": "After attending San Jose State College for two years, Gubser graduated from the University of California, Berkeley with a Bachelor of Arts degree in 1937, followed by two years of graduate work.",
+              "links": [
+                {
+                  "text": "San Jose State College",
+                  "type": "internal",
+                  "page": "San Jose State University"
+                },
+                {
+                  "type": "internal",
+                  "page": "University of California, Berkeley"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "url": "https://scholarworks.sjsu.edu/cgi/viewcontent.cgi?article=4768&context=spartandaily",
+          "title": "Rep. Gubser leads homecoming parade",
+          "work": "The Spartan Daily",
+          "publisher": "San Jose State College",
+          "page": "3",
+          "date": "October 27, 1965",
+          "template": "citation",
+          "type": "citation"
+        }
+      ]
+    },
+    {
+      "title": "Career",
+      "depth": 0,
+      "paragraphs": [
+        {
+          "sentences": [
+            {
+              "text": "Gubser taught at Gilroy Union High School from 1939 to 1943.",
+              "links": [
+                {
+                  "text": "Gilroy Union High School",
+                  "type": "internal",
+                  "page": "Gilroy High School"
+                }
+              ]
+            },
+            {
+              "text": "Gubser had been a farmer since 1940."
+            },
+            {
+              "text": "He served as member of the California State Assembly in 1951 and 1952.",
+              "links": [
+                {
+                  "type": "internal",
+                  "page": "California State Assembly"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "sentences": [
+            {
+              "text": "Gubser was first elected to represent California's 10th congressional district, which included San Jose and other parts of Santa Clara County, in 1952 and was sworn in on January 3, 1953.",
+              "links": [
+                {
+                  "type": "internal",
+                  "page": "California's 10th congressional district"
+                },
+                {
+                  "text": "San Jose",
+                  "type": "internal",
+                  "page": "San Jose, California"
+                },
+                {
+                  "text": "Santa Clara County",
+                  "type": "internal",
+                  "page": "Santa Clara County, California"
+                },
+                {
+                  "text": "1952",
+                  "type": "internal",
+                  "page": "United States House of Representatives elections in California, 1952"
+                }
+              ]
+            },
+            {
+              "text": "After winning re-election ten times, Gubser did not run for re-election in 1974 and resigned his seat on December 31, 1974."
+            },
+            {
+              "text": "Gubser voted in favor of the Civil Rights Acts of 1957, 1960, 1964, and 1968, as well as the 24th Amendment to the U.S. Constitution and the Voting Rights Act of 1965.",
+              "links": [
+                {
+                  "text": "Civil Rights Acts of 1957",
+                  "type": "internal",
+                  "page": "Civil Rights Act of 1957"
+                },
+                {
+                  "text": "1960",
+                  "type": "internal",
+                  "page": "Civil Rights Act of 1960"
+                },
+                {
+                  "text": "1964",
+                  "type": "internal",
+                  "page": "Civil Rights Act of 1964"
+                },
+                {
+                  "text": "1968",
+                  "type": "internal",
+                  "page": "Civil Rights Act of 1968"
+                },
+                {
+                  "text": "24th Amendment to the U.S. Constitution",
+                  "type": "internal",
+                  "page": "Twenty-fourth Amendment to the United States Constitution"
+                },
+                {
+                  "type": "internal",
+                  "page": "Voting Rights Act of 1965"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "title": "HR 6127. CIVIL RIGHTS ACT OF 1957. -- House Vote #42 -- Jun 18, 1957",
+          "url": "https://www.govtrack.us/congress/votes/85-1957/h42",
+          "access-date": "2021-02-13",
+          "website": "GovTrack.us",
+          "language": "en",
+          "template": "citation",
+          "type": "web"
+        },
+        {
+          "title": "HR 8601. PASSAGE. -- House Vote #102 -- Mar 24, 1960",
+          "url": "https://www.govtrack.us/congress/votes/86-1960/h102",
+          "access-date": "2021-02-13",
+          "website": "GovTrack.us",
+          "language": "en",
+          "template": "citation",
+          "type": "web"
+        },
+        {
+          "title": "H.R. 7152. PASSAGE. -- House Vote #128 -- Feb 10, 1964",
+          "url": "https://www.govtrack.us/congress/votes/88-1964/h128",
+          "access-date": "2021-02-13",
+          "website": "GovTrack.us",
+          "language": "en",
+          "template": "citation",
+          "type": "web"
+        },
+        {
+          "title": "TO PASS H.R. 2516, A BILL TO ESTABLISH PENALTIES FOR ... -- House Vote #113 -- Aug 16, 1967",
+          "url": "https://www.govtrack.us/congress/votes/90-1967/h113",
+          "access-date": "2021-02-13",
+          "website": "GovTrack.us",
+          "language": "en",
+          "template": "citation",
+          "type": "web"
+        },
+        {
+          "title": "S.J. RES. 29. CONSTITUTIONAL AMENDMENT TO BAN THE USE OF ... -- House Vote #193 -- Aug 27, 1962",
+          "url": "https://www.govtrack.us/congress/votes/87-1962/h193",
+          "access-date": "2021-02-13",
+          "website": "GovTrack.us",
+          "language": "en",
+          "template": "citation",
+          "type": "web"
+        },
+        {
+          "title": "TO PASS H.R. 6400, THE 1965 VOTING RIGHTS ACT. -- House Vote #87 -- Jul 9, 1965",
+          "url": "https://www.govtrack.us/congress/votes/89-1965/h87",
+          "access-date": "2021-02-13",
+          "website": "GovTrack.us",
+          "language": "en",
+          "template": "citation",
+          "type": "web"
+        },
+        {
+          "title": "Gubser, Charles Samuel",
+          "url": "http://bioguide.congress.gov/scripts/biodisplay.pl?index=G000512",
+          "publisher": "US Congress",
+          "accessdate": "January 18, 2013",
+          "template": "citation",
+          "type": "web"
+        }
+      ]
+    },
+    {
+      "title": "Personal life",
+      "depth": 0,
+      "paragraphs": [
+        {
+          "sentences": [
+            {
+              "text": "Gubser died in Fresno, California, where he had lived since 2005, on August 20, 2011 at age 95.",
+              "links": [
+                {
+                  "type": "internal",
+                  "page": "Fresno, California"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "last": "Estepa",
+          "first": "Jessica",
+          "title": "Ex-Rep. Charles Gubser of California Dies",
+          "url": "http://www.rollcall.com/news/ex_rep_charles_gubser_of_california_dies-208405-1.html",
+          "work": "Roll Call",
+          "date": "30 August 2011",
+          "accessdate": "January 18, 2013",
+          "template": "citation",
+          "type": "web"
+        }
+      ]
+    },
+    {
+      "title": "References",
+      "depth": 0,
+      "templates": [
+        {
+          "template": "reflist"
+        },
+        {
+          "id": "G000512",
+          "template": "congbio"
+        },
+        {
+          "template": "s-start"
+        },
+        {
+          "list": [
+            "us-hs"
+          ],
+          "template": "s-par"
+        },
+        {
+          "state": "California",
+          "district": "10",
+          "before": "Thomas H. Werdel",
+          "after": "Don Edwards",
+          "years": "1953–1974",
+          "template": "us house succession box"
+        },
+        {
+          "template": "authority control"
+        }
+      ]
+    }
+  ],
+  "wikidata": "Q1065970"
+}
