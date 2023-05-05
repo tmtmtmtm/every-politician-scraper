@@ -162,4 +162,13 @@ describe InfoboxEN::JSON do
     end
   end
 
+  describe 'Zoran Tegeltija' do
+    let(:datafile) { 'ZT.json' }
+
+    it 'copes with multiple infoboxes in one file' do
+      assert_equal 'Minister of Finance and Treasury', mandates.last[:positionLabel]
+      assert_equal '2023-01-25', mandates.last[:startDate]
+      assert_nil   mandates.last[:endDate]
+    end
+  end
 end

@@ -113,7 +113,7 @@ module InfoboxEN
     end
   end
 
-  class JSON
+  class Infobox
     def initialize(raw)
       @raw = raw
     end
@@ -130,16 +130,8 @@ module InfoboxEN
 
     attr_reader :raw
 
-    def parsed
-      @parsed ||= ::JSON.parse(raw)
-    end
-
-    def infobox_lines
-      parsed['sections'].flat_map { |section| section['infoboxes'] }.compact.reduce(&:merge)
-    end
-
     def grouped
-      infobox_lines.group_by { |key, _| key.match(/\d*$/)[0].to_i }.sort_by(&:first).map(&:last).map(&:to_h)
+      raw.group_by { |key, _| key.match(/\d*$/)[0].to_i }.sort_by(&:first).map(&:last).map(&:to_h)
     end
 
     def raw_mandates
@@ -148,6 +140,28 @@ module InfoboxEN
 
     def raw_sorted_mandates
       @raw_sorted_mandates ||= raw_mandates.sort_by { |h| h[:order] }
+    end
+  end
+
+  class JSON
+    def initialize(raw)
+      @raw = raw
+    end
+
+    def mandates
+      infoboxes.flat_map { |box| Infobox.new(box).mandates }
+    end
+
+    private
+
+    attr_reader :raw
+
+    def parsed
+      @parsed ||= ::JSON.parse(raw)
+    end
+
+    def infoboxes
+      parsed['sections'].flat_map { |section| section['infoboxes'] }.compact
     end
   end
 end
