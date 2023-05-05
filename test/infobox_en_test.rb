@@ -133,4 +133,16 @@ describe InfoboxEN::JSON do
       assert_equal 'MP for Tongatapu 5', mandates[0][:positionLabel]
     end
   end
+
+  describe 'Farooq Abdullah' do
+    let(:datafile) { 'FA.json' }
+
+    it 'has three Chief Minister mandates' do
+      assert_equal 3, (mandates.count { |posn| posn[:positionLabel] == 'Chief Minister of Jammu and Kashmir' })
+    end
+
+    it 'has three MP mandates' do
+      assert_equal 3, (mandates.count { |posn| posn[:positionLabel] == 'Member of Parliament, Lok Sabha' })
+    end
+  end
 end

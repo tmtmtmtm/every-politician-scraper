@@ -117,8 +117,8 @@ module InfoboxEN
 
     # If a mandate has no positionLabel, fill it from the previous one
     def mandates
-      raw_mandates.each_with_index do |mandate, idx|
-        mandate[:positionLabel] = raw_mandates[idx - 1][:positionLabel] if
+      raw_sorted_mandates.each_with_index do |mandate, idx|
+        mandate[:positionLabel] = raw_sorted_mandates[idx - 1][:positionLabel] if
           mandate[:positionLabel].to_s.empty? && !idx.zero?
       end
     end
@@ -141,6 +141,10 @@ module InfoboxEN
 
     def raw_mandates
       grouped.map { |entry| InfoboxEN::Mandate.new(entry).to_h rescue {} } rescue []
+    end
+
+    def raw_sorted_mandates
+      @raw_sorted_mandates ||= raw_mandates.sort_by { |h| h[:order] }
     end
   end
 end
