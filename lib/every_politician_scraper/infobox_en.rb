@@ -15,7 +15,8 @@ module InfoboxEN
   class Mandate
     POSITION = %w[office order title succession jr/sr parliament
                   state_house state_senate state_assembly assembly
-                  constituency_mp constituency_am amabassador_from].freeze
+                  state_delegate constituency_mp constituency_am
+                  amabassador_from].freeze
     BEGAN = %w[term_start termstart].freeze
     ENDED = %w[term_end termend].freeze
     TERM = %w[term reign].freeze
@@ -59,6 +60,7 @@ module InfoboxEN
         json.key?('constituency_mp') && json.key?('parliament')
       return "MP for #{json.dig('constituency_mp', 'text')}" if json.key?('constituency_mp')
       return "Member of the #{json.dig('assembly', 'text')} Assembly" if json.key?('assembly')
+      return "Member of the #{json.dig('state_delegate', 'text')} House of Delegates" if json.key?('state_delegate')
       return 'Senator' if json.key?('jr/sr')
       return "#{json.dig('parliament', 'text')} MP" if json.key?('parliament')
       return "#{json.dig('state_house', 'text')} State Representative" if json.key?('state_house')

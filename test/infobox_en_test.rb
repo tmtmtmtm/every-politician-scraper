@@ -145,4 +145,12 @@ describe InfoboxEN::JSON do
       assert_equal 3, (mandates.count { |posn| posn[:positionLabel] == 'Member of Parliament, Lok Sabha' })
     end
   end
+
+  describe 'Nathaniel Exum' do
+    let(:datafile) { 'NE.json' }
+
+    it 'recognises State Delegates' do
+      assert_equal 'Member of the Maryland House of Delegates', mandates[0][:positionLabel]
+    end
+  end
 end
