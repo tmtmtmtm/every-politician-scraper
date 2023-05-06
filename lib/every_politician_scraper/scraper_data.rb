@@ -326,7 +326,7 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def name_link_text
-      name_cell.css('a').map(&:text).first.tidy
+      name_cell.css('a').map(&:text).map(&:tidy).first
     end
 
     def columns
