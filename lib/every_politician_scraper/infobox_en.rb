@@ -38,9 +38,9 @@ module InfoboxEN
 
     attr_reader :origjson
 
-    # strip off the position number
+    # strip off the position number, and transform 'subterm' etc
     def json
-      @json ||= origjson.transform_keys { |key| key.sub(/\d+$/, '') }
+      @json ||= origjson.transform_keys { |key| key.sub(/\d+$/, '').delete_prefix('sub') }
     end
 
     def first_of_type(arr)

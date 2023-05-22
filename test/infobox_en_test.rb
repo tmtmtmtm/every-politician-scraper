@@ -171,4 +171,19 @@ describe InfoboxEN::JSON do
       assert_nil   mandates.last[:endDate]
     end
   end
+
+  describe 'Gemma Doyle' do
+    let(:datafile) { 'GD.json' }
+
+    it 'finds suboffices' do
+      assert_equal 2, mandates.count
+      assert_equal 'Shadow Minister for Defence Personnel, Welfare and Veterans', mandates.first[:positionLabel]
+      assert_equal 1, mandates.first[:order]
+    end
+
+    it 'does not interfere with normal office' do
+      assert_equal 'Member of Parliament for West Dunbartonshire', mandates.last[:positionLabel]
+      assert_equal 1, mandates.last[:order]
+    end
+  end
 end
