@@ -201,6 +201,7 @@ class OfficeholderListBase < Scraped::HTML
       hu: WikipediaDate::Hungarian,
       id: WikipediaDate::Indonesian,
       it: WikipediaDate::Italian,
+      ja: WikipediaDate::Japanese,
       lb: WikipediaDate::Luxembourgish,
       lt: WikipediaDate::Lithuanian,
       nl: WikipediaDate::Dutch,

@@ -459,6 +459,14 @@ class WikipediaDate
     end
   end
 
+  class Japanese < WikipediaDate
+    def to_s
+      return if date_str.to_s.empty?
+
+      date_str.split(/[年月日]/).map { |num| num.tidy.rjust(2, "0") }.take(3).join('-')
+    end
+  end
+
   # Lithuanian dates
   class Lithuanian < WikipediaDate
     REMAP = {

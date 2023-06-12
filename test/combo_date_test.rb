@@ -262,4 +262,12 @@ describe WikipediaDate do
       assert_equal '2004-06', WikipediaDate.new(datestr).to_s
     end
   end
+
+  describe 'Japanese dates' do
+    let(:datestr) { '2001年1月6日' }
+
+    it 'has the correct representation' do
+      assert_equal '2001-01-06', WikipediaDate::Japanese.new(datestr).to_s
+    end
+  end
 end
