@@ -55,10 +55,8 @@ module InfoboxEN
     #   https://en.wikipedia.org/w/index.php?title=Template:Infobox_officeholder/office&action=edit
     def position_label
       return "ambassador to #{json.dig('country', 'text') || '?'}" if json.key?('ambassador_from')
-
-      return "#{json.dig('parliament', 'text')} MP for #{json.dig('constituency_mp', 'text')}" if
-        json.key?('constituency_mp') && json.key?('parliament')
-      return "MP for #{json.dig('constituency_mp', 'text')}" if json.key?('constituency_mp')
+      return "#{json.dig('parliament', 'text')} MP" if json.key?('constituency_mp') && json.key?('parliament')
+      return "Member of Parliament" if json.key?('constituency_mp')
       return "Member of the #{json.dig('assembly', 'text')} Assembly" if json.key?('assembly')
       return "Member of the #{json.dig('state_delegate', 'text')} House of Delegates" if json.key?('state_delegate')
       return 'Senator' if json.key?('jr/sr')
@@ -67,8 +65,8 @@ module InfoboxEN
       return "#{json.dig('state_legislature', 'text')} State Legislator" if json.key?('state_legislature')
       return "#{json.dig('state_senate', 'text')} State Senator" if json.key?('state_senate')
       return "#{json.dig('state_assembly', 'text')} State Assembly Member" if json.key?('state_assembly')
-      return "Member of the U.S. House of Representatives from #{json.dig('state', 'text')}" if json.key?('state') && json.key?('constituency')
-      return "Member of the U.S. House of Representatives from #{json.dig('state', 'text')}" if json.key?('state') && json.key?('district')
+      return "Member of the U.S. House of Representatives" if json.key?('state') && json.key?('constituency')
+      return "Member of the U.S. House of Representatives" if json.key?('state') && json.key?('district')
 
       position['text'].to_s.tidy
     end

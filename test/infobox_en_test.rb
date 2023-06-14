@@ -130,7 +130,8 @@ describe InfoboxEN::JSON do
     end
 
     it 'rewrites constituency MP offices' do
-      assert_equal 'MP for Tongatapu 5', mandates[0][:positionLabel]
+      # assert_equal 'MP for Tongatapu 5', mandates[0][:positionLabel]
+      assert_equal 'Member of Parliament', mandates[0][:positionLabel]
     end
   end
 
@@ -158,7 +159,7 @@ describe InfoboxEN::JSON do
     let(:datafile) { 'CG.json' }
 
     it 'finds reps with state/district combo' do
-      assert_equal 'Member of the U.S. House of Representatives from California', mandates[1][:positionLabel]
+      assert_equal 'Member of the U.S. House of Representatives', mandates[1][:positionLabel]
     end
   end
 
