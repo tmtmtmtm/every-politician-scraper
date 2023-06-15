@@ -173,6 +173,16 @@ describe InfoboxEN::JSON do
     end
   end
 
+  describe 'Cesar Virata' do
+    let(:datafile) { 'CV.json' }
+    let(:pm) { mandates.find { |mandate| mandate[:positionLabel].include? 'Prime Minister' } }
+
+    it 'ignores Acting periods' do
+      assert_equal '1981-07-28', pm[:startDate]
+      assert_equal '1986-02-25', pm[:endDate]
+    end
+  end
+
   describe 'Gemma Doyle' do
     let(:datafile) { 'GD.json' }
 
