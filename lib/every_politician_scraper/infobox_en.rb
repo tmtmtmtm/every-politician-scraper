@@ -91,11 +91,11 @@ module InfoboxEN
     end
 
     def raw_start
-      (began['text'] || term_parts[0]).to_s.gsub(/Acting.*/, '').tidy
+      (began['text'] || term_parts[0]).to_s.gsub(/\(?Acting.*/, '').tidy
     end
 
     def raw_end
-      (ended['text'] || term_parts[1]).to_s.gsub(/Acting.*/, '').tidy
+      (ended['text'] || term_parts[1]).to_s.gsub(/\(?Acting.*/, '').tidy
     end
 
     def start_date

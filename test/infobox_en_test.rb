@@ -183,6 +183,16 @@ describe InfoboxEN::JSON do
     end
   end
 
+  describe 'Shalva Lomidze' do
+    let(:datafile) { 'SL.json' }
+    let(:pm) { mandates.last }
+
+    it 'ignores Acting periods in brackets' do
+      assert_equal '2021-04-23', pm[:startDate]
+      assert_nil pm[:endDate]
+    end
+  end
+
   describe 'Gemma Doyle' do
     let(:datafile) { 'GD.json' }
 
