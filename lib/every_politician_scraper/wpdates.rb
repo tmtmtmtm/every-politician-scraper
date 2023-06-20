@@ -285,9 +285,11 @@ class WikipediaDate
   # Estonian dates
   class Estonian < WikipediaDate
     REMAP = {
+      'Ametis'    => 'Incumbent',
       'jaanuar'   => 'January',
       'januaar'   => 'January',
       'veebruar'  => 'February',
+      'märts'     => 'March',
       'marts'     => 'March',
       'aprill'    => 'April',
       'mai'       => 'May',
@@ -302,6 +304,10 @@ class WikipediaDate
 
     def remap
       REMAP.merge(super)
+    end
+
+    def tidied
+      super.gsub('.', '')
     end
   end
 
