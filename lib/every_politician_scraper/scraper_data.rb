@@ -246,14 +246,14 @@ class OfficeholderListBase < Scraped::HTML
 
     def raw_start
       return combo_date.first if combo_date?
-      return start_cell.xpath('.//text()').map(&:text).map(&:tidy).reject(&:empty?).join(' ').tidy if multi_line_dates?
+      return start_cell.xpath('.//text()').map(&:text).map(&:tidy).reject(&:empty?).join(' ').split('(').first.tidy if multi_line_dates?
 
       start_cell.text.gsub(/\(.*?\)/, '').tidy
     end
 
     def raw_end
       return combo_date.last if combo_date?
-      return end_cell.xpath('.//text()').map(&:text).map(&:tidy).reject(&:empty?).join(' ').tidy if multi_line_dates?
+      return end_cell.xpath('.//text()').map(&:text).map(&:tidy).reject(&:empty?).join(' ').split('(').first.tidy if multi_line_dates?
 
       end_cell.text.gsub(/\(.*?\)/, '').delete('†').tidy
     end
@@ -287,9 +287,8 @@ class OfficeholderListBase < Scraped::HTML
       columns.include? 'dates'
     end
 
-    # override this if year is on a different line to the day+month
     def multi_line_dates?
-      false
+      true
     end
 
     def raw_combo_date
