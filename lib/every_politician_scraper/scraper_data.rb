@@ -253,7 +253,7 @@ class OfficeholderListBase < Scraped::HTML
 
     def raw_end
       return combo_date.last if combo_date?
-      return end_cell.xpath('.//text()').map(&:text).map(&:tidy).reject(&:empty?).join(' ').split('(').first.tidy if multi_line_dates?
+      return end_cell.xpath('.//text()').map(&:text).map(&:tidy).reject(&:empty?).join(' ').split('(').first.to_s.delete('†').tidy if multi_line_dates?
 
       end_cell.text.gsub(/\(.*?\)/, '').delete('†').tidy
     end
