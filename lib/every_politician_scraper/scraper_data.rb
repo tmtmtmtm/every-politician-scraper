@@ -292,7 +292,7 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def raw_combo_date
-      combo_date_cell.text
+      combo_date_cell.text.split('(').first.tidy
     end
 
     def combo_date
