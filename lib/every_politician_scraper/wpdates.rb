@@ -634,17 +634,29 @@ class WikipediaDate
   class Slovak < WikipediaDate
     REMAP = {
       'január'    => 'January',
+      'januára'   => 'January',
       'február'   => 'February',
+      'februára'  => 'February',
       'marec'     => 'March',
+      'marca'     => 'March',
       'apríl'     => 'April',
+      'apríla'    => 'April',
       'máj'       => 'May',
+      'mája'      => 'May',
       'jún'       => 'June',
+      'júna'      => 'June',
       'júl'       => 'July',
+      'júla'      => 'July',
       'august'    => 'August',
+      'augusta'   => 'August',
       'september' => 'September',
+      'septembra' => 'September',
       'október'   => 'October',
+      'októbra'   => 'October',
       'november'  => 'November',
+      'novembra'  => 'November',
       'december'  => 'December',
+      'decembra'  => 'December',
     }.freeze
 
     def tidied
