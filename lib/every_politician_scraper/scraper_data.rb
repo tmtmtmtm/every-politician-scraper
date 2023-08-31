@@ -456,3 +456,9 @@ class WikipediaTableOfficeholder < OfficeholderListBase::OfficeholderBase
     name_cell.css('a/@title').map(&:text).first
   end
 end
+
+class WikipediaListOfficeholder < OfficeholderNonTableBase
+  field :page do
+    name_node.attr('title')
+  end
+end
