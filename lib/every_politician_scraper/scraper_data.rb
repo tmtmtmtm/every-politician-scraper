@@ -448,3 +448,11 @@ class WikiLegislatureMember < WikiCabinetMember
     cell_for('area')
   end
 end
+
+class WikipediaTableOfficeholder < OfficeholderListBase::OfficeholderBase
+  field :page do
+    return name_node.attr('title') if name_node
+
+    name_cell.css('a/@title').map(&:text).first
+  end
+end
