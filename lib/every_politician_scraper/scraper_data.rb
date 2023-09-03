@@ -22,7 +22,11 @@ module EveryPoliticianScraper
     end
 
     def csv
-      header + rows.join
+      header + headless_csv
+    end
+
+    def headless_csv
+      rows.join
     end
 
     private
