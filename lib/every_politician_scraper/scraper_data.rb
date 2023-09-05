@@ -465,6 +465,6 @@ end
 
 class WikipediaListOfficeholder < OfficeholderNonTableBase
   field :page do
-    name_node.attr('title')
+    name_node.attr('title') unless name_node.attr('class') =~ /^(mw-redirect|new)$/
   end
 end
