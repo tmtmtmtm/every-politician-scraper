@@ -454,10 +454,12 @@ class WikiLegislatureMember < WikiCabinetMember
 end
 
 class WikipediaTableOfficeholder < OfficeholderListBase::OfficeholderBase
-  field :page do
-    return name_node.attr('title') if name_node
+  def name_node
+    name_cell.at_css('a')
+  end
 
-    name_cell.css('a/@title').map(&:text).first
+  field :page do
+    name_node.attr('title') unless name_node.attr('class') =~ /mw-redirect/
   end
 end
 
