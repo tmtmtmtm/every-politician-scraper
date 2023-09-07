@@ -455,7 +455,7 @@ end
 
 class WikipediaTableOfficeholder < OfficeholderListBase::OfficeholderBase
   def name_node
-    name_cell.at_css('a')
+    name_cell.at_css('a') || name_cell
   end
 
   field :page do
