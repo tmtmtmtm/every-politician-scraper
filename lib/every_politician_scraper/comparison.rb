@@ -206,7 +206,7 @@ module DaffDiff
     # e.g. 2008-05-13 vs 2008 or 2008-05
     class DatePrecision < DaffDiff::Cell
       def clean_data
-        return data unless field.to_s.include? 'date'
+        return data unless field.to_s =~ /date|start|end/
         return wikidata if wikidata.include?(scraped)
 
         data
@@ -216,7 +216,7 @@ module DaffDiff
     # Don't complain if Wikidata date is within a week of source date
     class WithinWeek < DaffDiff::Cell
       def clean_data
-        return data unless field.to_s.include? 'date'
+        return data unless field.to_s =~ /date|start|end/
 
         diff = days_between or return data
         diff < 7 ? scraped : data
