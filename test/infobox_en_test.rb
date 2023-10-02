@@ -193,6 +193,17 @@ describe InfoboxEN::JSON do
     end
   end
 
+  describe 'Blaine Calkins' do
+    let(:datafile) { 'BC.json' }
+    let(:whip) { mandates.last }
+
+    it 'prefers office title to other lines' do
+      assert_equal '2022-02-04', whip[:startDate]
+      assert_equal '2022-09-13', whip[:endDate]
+      assert_equal 'Chief Opposition Whip', whip[:positionLabel]
+    end
+  end
+
   describe 'Gemma Doyle' do
     let(:datafile) { 'GD.json' }
 

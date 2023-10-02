@@ -54,6 +54,7 @@ module InfoboxEN
     # There's a lot of extra logic in the Officeholder template
     #   https://en.wikipedia.org/w/index.php?title=Template:Infobox_officeholder/office&action=edit
     def position_label
+      return json.dig('office', 'text') if json.key?('office') # always takes priority
       return "ambassador to #{json.dig('country', 'text') || '?'}" if json.key?('ambassador_from')
       return "#{json.dig('parliament', 'text')} MP" if json.key?('constituency_mp') && json.key?('parliament')
       return "Member of Parliament" if json.key?('constituency_mp')
