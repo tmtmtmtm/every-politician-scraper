@@ -204,6 +204,15 @@ describe InfoboxEN::JSON do
     end
   end
 
+  describe 'Quentin Davies' do
+    let(:datafile) { 'QD.json' }
+    let(:lord) { mandates.last }
+
+    it 'removes extra lines from end dates' do
+      assert_equal '2023-07-25', lord[:endDate]
+    end
+  end
+
   describe 'Gemma Doyle' do
     let(:datafile) { 'GD.json' }
 

@@ -96,7 +96,7 @@ module InfoboxEN
     end
 
     def raw_end
-      (ended['text'] || term_parts[1]).to_s.gsub(/\(?Acting.*/, '').tidy
+      (ended['text'] || term_parts[1]).to_s.split("\n").map(&:tidy).reject(&:empty?).first.to_s.gsub(/\(?Acting.*/, '').tidy
     end
 
     def start_date
