@@ -13,10 +13,10 @@ end
 
 module InfoboxEN
   class Mandate
-    POSITION = %w[office order title succession jr/sr parliament
+    POSITION = %w[office title succession jr/sr parliament
                   state_house state_senate state_assembly assembly
                   state_delegate constituency_mp constituency_am
-                  state district amabassador_from].freeze
+                  state district amabassador_from order].freeze
     BEGAN = %w[term_start termstart].freeze
     ENDED = %w[term_end termend].freeze
     TERM = %w[term reign].freeze

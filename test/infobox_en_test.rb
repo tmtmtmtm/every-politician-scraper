@@ -213,6 +213,14 @@ describe InfoboxEN::JSON do
     end
   end
 
+  describe 'Preston Cole' do
+    let(:datafile) { 'PC.json' }
+
+    it 'handles both a title and an order' do
+      assert_equal 'Secretary of the Wisconsin Department of Natural Resources', mandates.last[:positionLabel]
+    end
+  end
+
   describe 'Gemma Doyle' do
     let(:datafile) { 'GD.json' }
 
