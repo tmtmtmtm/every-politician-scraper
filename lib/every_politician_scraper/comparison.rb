@@ -21,11 +21,11 @@ module EveryPoliticianScraper
     attr_reader :wikidata_source, :external_source
 
     def wikidata
-      @wikidata ||= CSV.table(wikidata_source, wikidata_csv_options)
+      @wikidata ||= CSV.table(wikidata_source, **wikidata_csv_options)
     end
 
     def external
-      @external ||= CSV.table(external_source, external_csv_options)
+      @external ||= CSV.table(external_source, **external_csv_options)
     end
 
     def wikidata_csv_options
