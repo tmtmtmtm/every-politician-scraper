@@ -244,6 +244,14 @@ describe WikipediaComboDate do
       assert_equal '1986-05-14', combo.last
     end
   end
+
+  describe 'Japanese dates' do
+    let(:datestr) { '2001年1月6日' }
+
+    it 'has the correct representation' do
+      assert_equal '2001-01-06', WikipediaDate::Japanese.new(datestr).to_s
+    end
+  end
 end
 
 describe WikipediaDate do
@@ -260,14 +268,6 @@ describe WikipediaDate do
 
     it 'has the correct representation' do
       assert_equal '2004-06', WikipediaDate.new(datestr).to_s
-    end
-  end
-
-  describe 'Japanese dates' do
-    let(:datestr) { '2001年1月6日' }
-
-    it 'has the correct representation' do
-      assert_equal '2001-01-06', WikipediaDate::Japanese.new(datestr).to_s
     end
   end
 end
