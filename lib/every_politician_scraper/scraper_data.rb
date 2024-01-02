@@ -164,8 +164,9 @@ end
 class OfficeholderListBase < Scraped::HTML
   field :members do
     raise 'No holder_entries found' if holder_entries.empty?
+    raise 'All member items are empty' if non_empty_member_items.empty?
 
-    member_items.reject(&:empty?).map(&:to_h).uniq
+    non_empty_member_items.map(&:to_h).uniq
   end
 
   def member_items
@@ -176,6 +177,10 @@ class OfficeholderListBase < Scraped::HTML
 
   def member_class
     ::OfficeholderList::Officeholder
+  end
+
+  def non_empty_member_items
+    member_items.reject(&:empty?)
   end
 
   def holder_entries
