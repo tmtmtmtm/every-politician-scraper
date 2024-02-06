@@ -177,6 +177,18 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'from date' do
+    let(:datestr) { 'from 17 September 2021' }
+
+    it 'has the correct start' do
+      assert_equal '2021-09-17', combo.first
+    end
+
+    it 'has no end' do
+      assert_nil combo.last
+    end
+  end
+
   describe 'German dates' do
     let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::German) }
     let(:datestr) { '18.–23. März 2004' }
