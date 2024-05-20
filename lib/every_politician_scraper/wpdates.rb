@@ -597,6 +597,7 @@ class WikipediaDate
       'января'             => 'January',
       'январь'             => 'January',
       'февраля'            => 'February',
+      'Февраля'            => 'February',
       'февраль'            => 'February',
       'марта'              => 'March',
       'март'               => 'March',
