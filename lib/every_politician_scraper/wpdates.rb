@@ -460,6 +460,10 @@ class WikipediaDate
       'dicembre'  => 'December',
     }.freeze
 
+    def tidied
+      super.to_s.downcase.gsub(/[º°]/, '').tidy
+    end
+
     def remap
       REMAP.merge(super)
     end

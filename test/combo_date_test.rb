@@ -257,6 +257,14 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'Italiam dates' do
+    let(:datestr) { '1º settembre 2016' }
+
+    it 'has the correct representation' do
+      assert_equal '2016-09-01', WikipediaDate::Italian.new(datestr).to_s
+    end
+  end
+
   describe 'Japanese dates' do
     let(:datestr) { '2001年1月6日' }
 
