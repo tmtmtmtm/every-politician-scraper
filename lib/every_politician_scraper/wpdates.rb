@@ -477,6 +477,33 @@ class WikipediaDate
     end
   end
 
+  # Latvian dates
+  class Latvian < WikipediaDate
+    REMAP = {
+      'pašlaik'    => '',
+      'janvāris'   => 'January',
+      'februāris'  => 'February',
+      'marts'      => 'March',
+      'aprīlis'    => 'April',
+      'maijs'      => 'May',
+      'jūnijs'     => 'June',
+      'jūlijs'     => 'July',
+      'augusts'    => 'August',
+      'septembris' => 'September',
+      'oktobris'   => 'October',
+      'novembris'  => 'November',
+      'decembris'  => 'December',
+    }.freeze
+
+    def tidied
+      super.gsub(/(\d{4}) ?\.? ? gada (\d+)\.?\s?([[:alpha:]]+)/, '\2 \3 \1')
+    end
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # Lithuanian dates
   class Lithuanian < WikipediaDate
     REMAP = {

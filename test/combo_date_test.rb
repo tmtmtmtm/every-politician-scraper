@@ -189,6 +189,19 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'Latvian dates' do
+    let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Latvian) }
+    let(:datestr) { '2019. gada 23. janvāris — 2022. gada 14. decembris' }
+
+    it 'has the correct start' do
+      assert_equal '2019-01-23', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_equal '2022-12-14', combo.last
+    end
+  end
+
   describe 'German dates' do
     let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::German) }
     let(:datestr) { '18.–23. März 2004' }
