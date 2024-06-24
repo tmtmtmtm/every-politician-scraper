@@ -344,7 +344,8 @@ class OfficeholderListBase < Scraped::HTML
     end
 
     def date_class
-      LANG.fetch(url[/(\w+)\.wikipedia.org/, 1].to_sym, WikipediaDate)
+      pg_url = url.include?('wikipedia.org') ? url : noko.xpath('//link[@rel="canonical"]/@href').text
+      LANG.fetch(pg_url[/(\w+)\.wikipedia.org/, 1].to_sym, WikipediaDate)
     end
   end
 end
