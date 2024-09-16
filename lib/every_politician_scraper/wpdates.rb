@@ -316,6 +316,7 @@ class WikipediaDate
     REMAP = {
       "aujourd'hui" => '',
       'auj.'        => '',
+      "en cours'"   => '',
       'en cours'    => '',
       'en fonction' => '',
       'januar'      => 'January',
