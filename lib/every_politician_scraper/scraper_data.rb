@@ -163,7 +163,7 @@ end
 # TODO: rename this to not be confused with the List version
 class OfficeholderListBase < Scraped::HTML
   field :members do
-    raise 'No holder_entries found' if holder_entries.empty?
+    no_holder_entries if holder_entries.empty?
     raise 'All member items are empty' if non_empty_member_items.empty?
 
     non_empty_member_items.map(&:to_h).uniq
@@ -185,6 +185,19 @@ class OfficeholderListBase < Scraped::HTML
 
   def holder_entries
     noko.xpath("//table[.//th[contains(.,'#{header_column}')]][#{table_number}]//tr[td]")
+  end
+
+  def all_table_headers
+    noko.xpath('//table').map.each_with_index do |table, count|
+      "Table #{count}\n  <#{table.css('th').map(&:text).map(&:tidy).join(">, <")}>"
+    end.join("\n")
+  end
+
+  def no_holder_entries
+    abort 'No tables found' unless noko.at_xpath('//table')
+    abort "No #{header_column} column found\n#{all_table_headers}" unless noko.at_xpath("//table[.//th[contains(.,'#{header_column}')]]")
+    abort "Table #{table_number} not found" unless noko.at_xpath("//table[.//th[contains(.,'#{header_column}')]][#{table_number}]")
+    raise 'No holder_entries found'
   end
 
   def header_column
