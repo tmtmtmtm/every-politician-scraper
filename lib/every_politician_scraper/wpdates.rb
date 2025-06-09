@@ -732,7 +732,7 @@ class WikipediaDate
     end
 
     def tidied
-      super.to_s.downcase.gsub(/[º°]/, '').gsub(' de ', ' ').tidy
+      super.to_s.downcase.gsub(/[º°]/, '').gsub(' del ', ' ').gsub(' de ', ' ').tidy
     end
   end
 
