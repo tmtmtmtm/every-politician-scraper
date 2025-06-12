@@ -558,6 +558,32 @@ class WikipediaDate
     end
   end
 
+  # Macedonian Dates
+  class Macedonian < WikipediaDate
+    REMAP = {
+      'актуелен'     => 'Incumbent',
+      'во служба'    => 'Incumbent',
+      'Тековен'      => 'Incumbent',
+      'тековен'      => 'Incumbent',
+      'јануари'      => 'January',
+      'февруари'     => 'February',
+      'март'         => 'March',
+      'април'        => 'April',
+      'мај'          => 'May',
+      'јуни'         => 'June',
+      'јули'         => 'July',
+      'август'       => 'August',
+      'септември'    => 'September',
+      'октомври'     => 'October',
+      'ноември'      => 'November',
+      'декември'     => 'December',
+    }.freeze
+
+    def remap
+      REMAP.merge(super)
+    end
+  end
+
   # Portuguese dates
   class Portuguese < WikipediaDate
     REMAP = {

@@ -227,6 +227,7 @@ class OfficeholderListBase < Scraped::HTML
       lb: WikipediaDate::Luxembourgish,
       lt: WikipediaDate::Lithuanian,
       lv: WikipediaDate::Latvian,
+      mk: WikipediaDate::Macedonian,
       nl: WikipediaDate::Dutch,
       pt: WikipediaDate::Portuguese,
       ro: WikipediaDate::Romanian,

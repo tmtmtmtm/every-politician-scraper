@@ -215,6 +215,19 @@ describe WikipediaComboDate do
     end
   end
 
+  describe 'Macedonian dates' do
+    let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Macedonian) }
+    let(:datestr) { '9 јуни 2025 - Тековен' }
+
+    it 'has the correct start' do
+      assert_equal '2025-06-09', combo.first
+    end
+
+    it 'has the correct end' do
+      assert_nil combo.last
+    end
+  end
+
   describe 'Vietnamese dates' do
     let(:combo) { WikipediaComboDate.new(datestr, WikipediaDate::Vietnamese) }
 
